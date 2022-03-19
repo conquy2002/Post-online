@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\Source\\Repos\\Post-online\\Api - postonline\\Api\\Api.csproj": {}
+    "C:\\Users\\ADMIN\\source\\repos\\Post-online\\Api - postonline\\Api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\Source\\Repos\\Post-online\\Api - postonline\\Api\\Api.csproj": {
+    "C:\\Users\\ADMIN\\source\\repos\\Post-online\\Api - postonline\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Source\\Repos\\Post-online\\Api - postonline\\Api\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\Post-online\\Api - postonline\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\ADMIN\\Source\\Repos\\Post-online\\Api - postonline\\Api\\Api.csproj",
+        "projectPath": "C:\\Users\\ADMIN\\source\\repos\\Post-online\\Api - postonline\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Source\\Repos\\Post-online\\Api - postonline\\Api\\obj\\",
+        "outputPath": "C:\\Users\\ADMIN\\source\\repos\\Post-online\\Api - postonline\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,13 +40,19 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[6.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
