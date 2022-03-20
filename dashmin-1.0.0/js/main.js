@@ -57,6 +57,28 @@
         loop: true,
         nav : false
     });
+    if($(".pie-chart-hai").get(0)){
+        var ctx51 = $(".pie-chart-hai").get(0).getContext("2d");
+        var myChart51 = new Chart(ctx51, {
+            type: "pie",
+            data: {
+                labels: ["Italy", "France", "Spain", "USA", "Argentina"],
+                datasets: [{
+                    backgroundColor: [
+                        "rgba(0, 156, 255, .7)",
+                        "rgba(0, 156, 255, .6)",
+                        "rgba(0, 156, 255, .5)",
+                        "rgba(0, 156, 255, .4)",
+                        "rgba(0, 156, 255, .3)"
+                    ],
+                    data: [55, 49, 44, 24, 15]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
 
 
     // Worldwide Sales Chart
@@ -158,6 +180,9 @@
 
 
     // Pie Chart
+   
+   
+    
     var ctx5 = $("#pie-chart").get(0).getContext("2d");
     var myChart5 = new Chart(ctx5, {
         type: "pie",
@@ -178,6 +203,10 @@
             responsive: true
         }
     });
+
+
+    
+    
 
 
     // Doughnut Chart
