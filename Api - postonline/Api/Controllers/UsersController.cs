@@ -77,12 +77,17 @@ namespace Api
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<object> PostUser(User user)
         {
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
+            var checklogin = await _context.User.FirstOrDefaultAsync(m => m.Email == user.Email);
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            if (checklogin == null)
+            {
+                _context.User.Add(user);
+                await _context.SaveChangesAsync();
+                return new { Status = "Success", Message = "Thành công" };
+            }
+            return new { Status = "Error", Message = "Đã tồn tại" };
         }
 
         // DELETE: api/Users/5
