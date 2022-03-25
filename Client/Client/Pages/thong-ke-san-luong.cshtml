@@ -1,0 +1,75 @@
+﻿@page
+@model Client.Pages.thong_ke_san_luongModel
+@{
+}
+<!-- Button Start -->
+<div class="container-fluid pt-4 px-4">
+    <h6>Payment by status (Calculated by date of dispatch)</h6>
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2">Total Orders</p>
+                    <h6 class="mb-0">$0</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2">Total province</p>
+                    <h6 class="mb-0">$0</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <div class="ms-3">
+                    <p class="mb-2">Total revenue</p>
+                    <h6 class="mb-0">$0</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-12 col-xl-6 d-flex w-100">
+        <div class="bg-light rounded h-100 p-4 m-5">
+            <h6 class="mb-4">Pie Chart</h6>
+            <canvas class="pie-chart-hai"></canvas>
+        </div>
+        <div class="bg-light rounded h-100 p-4 m-5">
+            <h6 class="mb-4">Basic Table</h6>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>jhon@email.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mark@email.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>jacob@email.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
