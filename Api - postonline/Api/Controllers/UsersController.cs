@@ -31,7 +31,7 @@ namespace Api
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<User>> GetUser(int id,bool? all)
         {
             var user = await _context.User.FindAsync(id);
 
@@ -39,8 +39,23 @@ namespace Api
             {
                 return NotFound();
             }
-
-            return user;
+            if(all == true)
+            {
+                return user;
+            }
+            else
+            {
+                return Ok(new
+                {
+                    id = user.Id,
+                    name = user.Name,
+                    avatar = user.Avatar,
+                    phone = user.Phone,
+                    address = user.Address,
+                    email = user.Email
+                });
+            }
+            
         }
 
         // PUT: api/Users/5
@@ -110,5 +125,6 @@ namespace Api
         {
             return _context.User.Any(e => e.Id == id);
         }
+        
     }
 }

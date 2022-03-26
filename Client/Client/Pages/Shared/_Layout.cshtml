@@ -110,6 +110,7 @@
         var UrlApi = "https://localhost:7193/api";
         var UrlLogin = "/Login";
         var UrlUser = "/Users";
+        var UrlImagerName = '/Imager?name=';
     </script>
 
 
@@ -236,10 +237,19 @@
         </div>
         <!-- Spinner End -->
         <script>
-            var token = getCookie("Token");
-            fetchurl.get(UrlApi +UrlLogin+'?user='+token,data => {
+            var app = {
+                login: false,
+
+            }
+            var token = getCookie("Token")
+            if(token == ""){
+                document.querySelector('.main').classList.add("hide");
+                document.querySelector('.login_class').classList.remove("hide");
+                document.querySelector('.singup_class').classList.add("hide");
+            }else
+            fetchurl.get(UrlApi +UrlLogin+'?user='+token,async (err,data) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                 var time = new Date().getTime();
-                if(data.status == "Error") {
+                if(data.Status == "Error") {
                     app.login = false;
                     setCookie("UserID"," ",time);
                     setCookie("Token"," ",time);
@@ -249,14 +259,33 @@
                     document.querySelector('.singup_class').classList.add("hide");
                     return;        
                 }else{
-                    setCookie("UserID",data.message,time);
+                    setCookie("UserID",data.Message,time);
                     document.querySelector('.main').classList.remove("hide");
                     document.querySelector('.login_class').classList.add("hide");
                     document.querySelector('.singup_class').classList.add("hide");
-                    return;
+                    app.dataUser = await fetchurl.get(UrlApi + UrlUser + "/"+ getCookie("UserID"))
+                    $(".menu_setting").html(`
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="${UrlApi + UrlImagerName + app.dataUser.avatar}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">${app.dataUser.name}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <div  class="dropdown-item">My Profile</div>
+                            <div  class="dropdown-item">Settings</div>
+                            <div  class="dropdown-item logout">Log Out</div>
+                        </div>
+                         `)
+                    document.querySelector('.logout').addEventListener('click',()=>{
+                        console.log('a')
+                        var time = new Date().getTime();
+                        setCookie("UserID"," ",time);
+                        setCookie("Token"," ",time);
+                        return location.reload();
+                    })
+                    return app.login = true;;
                 }
             })
-             document.querySelector('.btn_sign_up').addEventListener('click',()=>{
+            document.querySelector('.btn_sign_up').addEventListener('click',()=>{
                 document.querySelector('.login_class').classList.add("hide");
                 document.querySelector('.singup_class').classList.remove("hide");
             })
@@ -307,7 +336,6 @@
                 setCookie("Token",token,time)
                 return location.reload();
             })
-            
         </script>
         <!-- Sidebar Start -->
   
@@ -316,29 +344,15 @@
             <a href="index.html" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary">Robin Post</h3>
             </a>
-            <div class="d-flex align-items-center ms-4 mb-4">
-                <div class="position-relative">
-                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
-                </div>
-                <div class="ms-3">
-                    <h6 class="mb-0">Nguyên Phấn Đông</h6>
-                    <span>Admin</span>
-                </div>
-            </div>
             <div class="navbar-nav w-100">
                 <a href="Index" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
                 <a href="tao-don" class="nav-item nav-link "><i class="fa fa-laptop me-2"></i>Create orders</a>
-                <a class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Manage</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="quan-ly-van-don" class="dropdown-item">Bill of lading management</a>
-                        <a href="thong-ke-tien-hang" class="dropdown-item">Cash statistícs</a>
-                        <a href="thong-ke-san-luong" class="dropdown-item">Revenue statistics</a>
-                        <a href="don-hang-can-xu-ly" class="dropdown-item">Orders to be processed</a>
-                    </div>
-                </a>
-                <a href="mang-luoi-buu-cuc" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Search</a>
+                <a href="quan-ly-van-don" class="nav-item nav-link"><i class="far fa-address-book me-2"></i>Bill of lading management</a>
+                <a href="thong-ke-tien-hang" class="nav-item nav-link"><i class="fas fa-chart-bar me-2"></i>Cash statistícs</a>
+                <a href="thong-ke-san-luong" class="nav-item nav-link"><i class="far fa-clipboard me-2"></i>Revenue statistics</a>
+                <a href="don-hang-can-xu-ly" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Orders to be processed</a>
+                
+                <a href="mang-luoi-buu-cuc" class="nav-item nav-link"><i class="fas fa-search me-2"></i>Search</a>
                 <a href="cau-hinh-tai-khoan" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Account Setting</a>
             @*<script>
                 var a = document.querySelectorAll('.nav-item')
@@ -432,17 +446,11 @@
                             <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
+                   
+                    <div class="nav-item dropdown menu_setting">
+                        
                     </div>
+
                 </div>
             </nav>
             <!-- Navbar End -->
