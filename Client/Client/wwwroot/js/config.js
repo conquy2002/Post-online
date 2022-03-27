@@ -85,3 +85,4 @@ var UrlLogin = "/Login";
 var UrlUser = "/Users";
 var UrlImagerName = '/Imager?name=';
 
+

@@ -83,35 +83,7 @@
     <link href="~/css//style.css" rel="stylesheet">
         <script src="~/js/config.js"></script>
     <script src="~/js/md5.js"></script>
-    <script>
-        function setCookie(cname,cvalue,exdays) {
-            const d = new Date();
-            d.setTime(d.getTime() + (exdays*24*60*60*1000));
-            let expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        };
 
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-              let c = ca[i];
-              while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-              }
-              if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-              }
-            }
-            return "";
-        };
-
-        var UrlApi = "https://localhost:7193/api";
-        var UrlLogin = "/Login";
-        var UrlUser = "/Users";
-        var UrlImagerName = '/Imager?name=';
-    </script>
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -152,6 +124,12 @@
 </head>
 
 <body>
+    <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
       <div class = "login_class">
             <div class="container-fluid">
                 <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
@@ -228,115 +206,8 @@
             </div>
         </div>
     </div>
-    <div class="container-xxl position-relative bg-white d-flex p-0 main">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-        <script>
-            var app = {
-                login: false,
-
-            }
-            var token = getCookie("Token")
-            if(token == ""){
-                document.querySelector('.main').classList.add("hide");
-                document.querySelector('.login_class').classList.remove("hide");
-                document.querySelector('.singup_class').classList.add("hide");
-            }else
-            fetchurl.get(UrlApi +UrlLogin+'?user='+token,async (err,data) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-                var time = new Date().getTime();
-                if(data.Status == "Error") {
-                    app.login = false;
-                    setCookie("UserID"," ",time);
-                    setCookie("Token"," ",time);
-                    alert("Tài Khoản k tồn tại")
-                    document.querySelector('.main').classList.add("hide");
-                    document.querySelector('.login_class').classList.remove("hide");
-                    document.querySelector('.singup_class').classList.add("hide");
-                    return;        
-                }else{
-                    setCookie("UserID",data.Message,time);
-                    document.querySelector('.main').classList.remove("hide");
-                    document.querySelector('.login_class').classList.add("hide");
-                    document.querySelector('.singup_class').classList.add("hide");
-                    app.dataUser = await fetchurl.get(UrlApi + UrlUser + "/"+ getCookie("UserID"))
-                    $(".menu_setting").html(`
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="${UrlApi + UrlImagerName + app.dataUser.avatar}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">${app.dataUser.name}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <div  class="dropdown-item">My Profile</div>
-                            <div  class="dropdown-item">Settings</div>
-                            <div  class="dropdown-item logout">Log Out</div>
-                        </div>
-                         `)
-                    document.querySelector('.logout').addEventListener('click',()=>{
-                        console.log('a')
-                        var time = new Date().getTime();
-                        setCookie("UserID"," ",time);
-                        setCookie("Token"," ",time);
-                        return location.reload();
-                    })
-                    return app.login = true;;
-                }
-            })
-            document.querySelector('.btn_sign_up').addEventListener('click',()=>{
-                document.querySelector('.login_class').classList.add("hide");
-                document.querySelector('.singup_class').classList.remove("hide");
-            })
-            document.querySelector('.btn_sign_in').addEventListener('click',()=>{
-                document.querySelector('.login_class').classList.remove("hide");
-                document.querySelector('.singup_class').classList.add("hide");
-            })
-            document.querySelector('#register').addEventListener('click',()=>{
-                var confirmationRePassword =  $("#confirmationRePassword").val();
-                var floatingRePassword =  $("#floatingRePassword").val();
-                if(confirmationRePassword !== floatingRePassword) return alert('Mat khau khong khop, vui long kiem tra lai!!!');
-
-                var time = Date.now();
-                var pwdmd5 = md5(md5(floatingRePassword));
-                var token = md5($("#floatingReInput").val() + pwdmd5);
-                return fetchurl.post(UrlApi + UrlUser , {
-                    "name": $("#floatingReText").val(),
-                    "password": pwdmd5,
-                    "avatar": "avatar.jpg",
-                    "isAdmin": false,
-                    "token": token,
-                    "phone": $("#floatingRephone").val(),
-                    "email": $("#floatingReInput").val(),
-                    "address": $("#floatingReAddress").val(),
-                },false,(loi,data) => {
-                    if(loi){
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
-                        return location.reload();
-                    }
-                   
-                    if(data.status == "Error" || data.errors )  { 
-                        alert(data.message ? data.message : data.errors); 
-                         console.log(data)
-                        return location.reload()
-                    }
-                    alert(data.message)
-                    setCookie("Token",token,time)
-                    setCookie("UserID",token,time)
-                    return location.reload();
-                })
-            })
-            document.querySelector('#login').addEventListener('click',()=>{
-                var Email =  $("#floatingInput").val();
-                var floatingRePassword =  $("#floatingPassword").val();
-                var time = Date.now();
-                var pwdmd5 = md5(md5(floatingRePassword));
-                var token = md5(Email + pwdmd5);
-                setCookie("Token",token,time)
-                return location.reload();
-            })
-        </script>
+    <div class="container-xxl position-relative bg-white d-flex p-0 main hide">
+        
         <!-- Sidebar Start -->
   
     <div class="sidebar pe-4 pb-3">
@@ -354,15 +225,6 @@
                 
                 <a href="mang-luoi-buu-cuc" class="nav-item nav-link"><i class="fas fa-search me-2"></i>Search</a>
                 <a href="cau-hinh-tai-khoan" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Account Setting</a>
-            @*<script>
-                var a = document.querySelectorAll('.nav-item')
-                for( var b of a){
-                    b.addEventListener('click',function aclink(){
-                        a.forEach(item => item.classList.remove('active'));
-                        this.classList.add('active')
-                    }) 
-                }
-            </script>*@
             </div>
         </nav>
     </div>
@@ -484,7 +346,142 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    
+    <script>
+        var app = {
+    login: false,
+
+}
+app.checklogin = async () => {
+    console.log("1")
+    var token = getCookie("Token");
+    if (token == "") {
+        return app.login = false;
+    } else {
+        try {
+            var checkacc = await fetchurl.get(UrlApi + UrlLogin + '?user=' + token);
+            if (checkacc.Status == "Error") {
+                alert("Tài Khoản k tồn tại");
+                return app.login = false;
+            } else {
+                var time = new Date().getTime();
+                setCookie("UserID", checkacc.Message, time)
+                return app.login = true
+
+            }
+        } catch (err) {
+            console.log(err);
+            alert("Không thể kết nối tới api");
+            return app.login = false;
+        }
+
+    }
+}
+app.render = async () => {
+    var time = new Date().getTime();
+    if (!app.login) {
+        document.querySelector('.main').classList.add("hide");
+        document.querySelector('.login_class').classList.remove("hide");
+        document.querySelector('.singup_class').classList.add("hide");
+        setCookie("UserID", " ", time);
+        setCookie("Token", " ", time);
+        return true;
+    } else {
+        document.querySelector('.main').classList.remove("hide");
+        document.querySelector('.login_class').classList.add("hide");
+        document.querySelector('.singup_class').classList.add("hide");
+        app.dataUser = await fetchurl.get(UrlApi + UrlUser + "/" + getCookie("UserID"))
+        $(".menu_setting").html(`
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <img class="rounded-circle me-lg-2" src="${UrlApi + UrlImagerName + app.dataUser.avatar}" alt="" style="width: 40px; height: 40px;">
+                <span class="d-none d-lg-inline-flex">${app.dataUser.name}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                <div  class="dropdown-item">My Profile</div>
+                <div  class="dropdown-item">Settings</div>
+                <div  class="dropdown-item logout">Log Out</div>
+            </div>
+        `)
+    }
+}
+
+app.handerevent = () => {
+    var time = new Date().getTime();
+    if (!app.login) {
+        //đăng ký
+        document.querySelector('.btn_sign_up').addEventListener('click', () => {
+            document.querySelector('.login_class').classList.add("hide");
+            document.querySelector('.singup_class').classList.remove("hide");
+        })
+        //đăng nhập
+        document.querySelector('.btn_sign_in').addEventListener('click', () => {
+            document.querySelector('.login_class').classList.remove("hide");
+            document.querySelector('.singup_class').classList.add("hide");
+        })
+        //post đăng ký
+        document.querySelector('#register').addEventListener('click', () => {
+            var confirmationRePassword = $("#confirmationRePassword").val();
+            var floatingRePassword = $("#floatingRePassword").val();
+            if (confirmationRePassword !== floatingRePassword) return alert('Mat khau khong khop, vui long kiem tra lai!!!');
+
+            var time = Date.now();
+            var pwdmd5 = md5(md5(floatingRePassword));
+            var token = md5($("#floatingReInput").val() + pwdmd5);
+            return fetchurl.post(UrlApi + UrlUser, {
+                "name": $("#floatingReText").val(),
+                "password": pwdmd5,
+                "avatar": "avatar.jpg",
+                "isAdmin": false,
+                "token": token,
+                "phone": $("#floatingRephone").val(),
+                "email": $("#floatingReInput").val(),
+                "address": $("#floatingReAddress").val(),
+            }, false, (loi, data) => {
+                if (loi) {
+                    alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                    return location.reload();
+                }
+
+                if (data.Status == "Error" || data.errors) {
+                    alert(data.message ? data.message : data.errors);
+                    console.log(data)
+                    return location.reload()
+                }
+                
+                alert(data.Message)
+                setCookie("Token", token, time)
+                setCookie("UserID", token, time)
+                return location.reload();
+            })
+        })
+        //post đăng nhập
+        document.querySelector('#login').addEventListener('click', () => {
+            var Email = $("#floatingInput").val();
+            var floatingRePassword = $("#floatingPassword").val();
+            var time = Date.now();
+            var pwdmd5 = md5(md5(floatingRePassword));
+            var token = md5(Email + pwdmd5);
+            setCookie("Token", token, time)
+            return location.reload();
+        })
+    } else {
+        document.querySelector('.logout').addEventListener('click', () => {
+            setCookie("Token", " ", time)
+            return location.reload();
+        })
+    }
+}
+
+
+app.start = async () => {
+    console.log("1")
+    await app.checklogin();
+    await app.render();
+    await app.handerevent();
+}
+
+
+app.start();
+    </script>
     
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
