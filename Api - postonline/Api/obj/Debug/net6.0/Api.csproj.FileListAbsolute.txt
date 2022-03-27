@@ -533,3 +533,6 @@ E:\Project-Post-Online\Post-online\Api - postonline\Api\obj\Debug\net6.0\Api.gen
 E:\Project-Post-Online\Post-online\Api - postonline\Api\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 E:\Project-Post-Online\Post-online\Api - postonline\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\Project-Post-Online\Post-online\Api - postonline\Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\ADMIN\Source\Repos\Post-online\Api - postonline\Api\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\ADMIN\Source\Repos\Post-online\Api - postonline\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\ADMIN\Source\Repos\Post-online\Api - postonline\Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
