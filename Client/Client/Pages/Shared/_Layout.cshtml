@@ -121,7 +121,7 @@
             cursor: pointer;
         }
         .showmodal{
-            opacity: 1;
+            opacity: 1 !important;
             display: block;
             background: rgb(48 48 48 / 48%);
         }
@@ -494,6 +494,16 @@ app.start = async () => {
 
 
 app.start();
+
+        function changImg(img,idfile,index){
+            document.querySelector(img).src = URL.createObjectURL(document.querySelector(idfile).files[index])
+        }
+        function show(taget){
+            return document.querySelector(taget).classList.add('showmodal');
+        }
+        function hide(taget){
+            return document.querySelector(taget).classList.remove('showmodal');
+        }
     </script>
     
     <!-- Template Javascript -->

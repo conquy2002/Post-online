@@ -4,13 +4,10 @@
 }
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <div class="col-sm-12 col-xl-2 d-flex flex-column">
+        <div class="col-sm-12 col-xl-2 d-flex flex-column chose_setting">
             <button type="button" class="btn btn-sm btn-outline-primary btn-primary m-2 btn-acc" data-item = "0">ACCOUNT INFORMATION</button>
             <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "1">CHANGE THE PASSWORD</button>
             <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "2">SENDER INFORMATION SETTING</button>
-@*            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc">Primary</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc">Primary</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc">Primary</button>*@
         </div>
         <div class="col-sm-12 col-xl-10 setting-acc setting-acc-0 " >
             <div class="bg-light rounded h-100 p-4">
@@ -63,6 +60,25 @@
                 </table>         
             </div>
         </div>
+        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-3 d-none" >
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">SERVICE SETTING</h6>
+                <button type="button" class="btn btn-outline-danger m-2" onclick = "show('#ModalAddSerce')">Add Servce</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Money</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "SERVICE_SETTING_SETTING">
+                    </tbody>
+                </table>         
+            </div>
+        </div>
     </div>
 </div>
 
@@ -76,8 +92,32 @@
         <div class="modal-body ModalEditbody">
         </div>
         <div class="modal-footer ModalEditfooter">
-            <button type="button" class="btn btn-primary btn-Update">Update</button>
+            <button type="button" class="btn btn-primary summitedit">Update</button>
             <button type="button" class="btn btn-default" onclick = "hide('#ModalEdit')">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalAddSerce" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
+            <h4 class="modal-title">Add Servce</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="AddServceText" placeholder="jhondoe" required>
+                <label for="AddServceText">Name Servce</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="number" class="form-control" id="AddServcephone" placeholder="phone" required>
+                <label for="AddServcephone">Money</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary  btn-AddServce ">Add</button>
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSerce')">Close</button>
         </div>
         </div>
     </div>
@@ -112,7 +152,7 @@
 </div>
 @section Scripts {
     <script>
-        var cauhinhtaikhoan = () => {
+        var cauhinhtaikhoan = async () => {
             if(!app.login) return;
             var btn_acc_s = document.querySelectorAll(".btn-acc");
             var setting_acc_s = document.querySelectorAll(".setting-acc");
@@ -147,7 +187,43 @@
                 </div>
             
             `
-            renderSender();
+            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = "";
+            load.on();
+            var data = await fetchurl.get(UrlApi + "/Recipients/" + getCookie("UserID"));
+            var dataalluser = await fetchurl.get(UrlApi + UrlUser + "/" + getCookie("UserID") + "?all=true")
+            
+
+            var body = "";
+            for(var i = 0; i < data.length ; i++){
+                body += `<tr>
+                            <th scope="row">${(i+1)}</th>
+                            <td>${data[i].Name}</td>
+                            <td>${data[i].Phone}</td>
+                            <td>${data[i].Address}</td>
+                            <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${data[i].Id},'Recipients')">Edit</button></td>
+                            <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${data[i].Id},'Recipients')">Delete</button></td>
+                        </tr>`
+            }
+            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = body;
+            if(dataalluser.IsAdmin) {
+                $(".chose_setting").append(' <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "3">SERVICE SETTING</button>')
+                var dataallservce = await fetchurl.get(UrlApi + "/Servces")
+                var body = "";
+                for(var i = 0; i < dataallservce.length ; i++){
+                    body += `<tr>
+                                <th scope="row">${(i+1)}</th>
+                                <td>${dataallservce[i].Name}</td>
+                                <td>${dataallservce[i].Money}</td>
+                                <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${dataallservce[i].Id},'Servce')">Edit</button></td>
+                                <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${dataallservce[i].Id},'Servce')">Delete</button></td>
+                            </tr>`
+                }
+                document.getElementById('SERVICE_SETTING_SETTING').innerHTML = body;
+
+            }
+            load.off();
+
+            
             //endrender
 
 
@@ -227,6 +303,7 @@
             //end đổi mk
 
             //handerevent
+            var btn_acc_s = document.querySelectorAll(".btn-acc");
             for(var i = 0 ; i < btn_acc_s.length ; i++){
                 btn_acc_s[i].onclick = function check(){
                     btn_acc_s.forEach( a => {
@@ -255,11 +332,31 @@
                         console.log(data)
                         return location.reload()
                     }
-                    alert(data.Message)
+                    alert("done")
                     return location.reload();
                 })
             };
-            document.querySelector('.btn-Update').onclick = async () => {
+
+            document.querySelector('.btn-AddServce').onclick = async () => {
+                return fetchurl.post(UrlApi + "/Servces", {
+                    "name": $("#AddServceText").val(),
+                    "money": $("#AddServcephone").val()
+                }, false, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+            if(document.querySelector('.btn-Update')) document.querySelector('.btn-Update').onclick = async () => {
                 return fetchurl.put(UrlApi + "/Recipients/" +  document.querySelector("#ModalEdit").dataset.id , {
                     "id": document.querySelector("#ModalEdit").dataset.id,
                     "name": $("#EditSenderText").val(),
@@ -281,50 +378,73 @@
                     return location.reload();
                 })
             };
+
+            if(document.querySelector('.btn-Update-servce')) document.querySelector('.btn-Update-servce').onclick = async () => {
+                return fetchurl.put(UrlApi + "/Servces/" +  document.querySelector("#ModalEdit").dataset.id , {
+                    "id": document.querySelector("#ModalEdit").dataset.id,
+                    "name": $("#EditServceText").val(),
+                    "Money": $("#EditServcephone").val()
+                }, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
             
             document.querySelector('.cancer').onclick = () => location.reload();
         }
-        async function renderSender (name) {
-            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = "";
-            load.on();
-            var data = await fetchurl.get(UrlApi + "/Recipients/" + getCookie("UserID"));
-            var body = "";
-            for(var i = 0; i < data.length ; i++){
-                body += `<tr>
-                            <th scope="row">${(i+1)}</th>
-                            <td>${data[i].Name}</td>
-                            <td>${data[i].Phone}</td>
-                            <td>${data[i].Address}</td>
-                            <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${data[i].Id})">Edit</button></td>
-                            <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${data[i].Id})">Delete</button></td>
-                        </tr>`
-            }
-            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = body;
-            return load.off();
-        }
+
         app.handercommands.push(cauhinhtaikhoan);
-        async function editsenderinfo(id){
-            var data = await fetchurl.get(UrlApi + "/Recipients/" + id + "?singer=true");
-            document.querySelector('.ModalEditbody').innerHTML = `
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="EditSenderText" placeholder="jhondoe" required value = '${data.Name}'>
-                    <label for="EditSenderText">Username</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="number" class="form-control" id="EditSenderphone" placeholder="phone" required value = '0${data.Phone}'>
-                    <label for="EditSenderphone">Phone</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="EditSenderAddress" placeholder="Address" required value = '${data.Address}'>
-                    <label for="EditSenderAddress">Address</label>
-                </div>
-            `
+        async function editsenderinfo(id,name){
+            if(name == 'Recipients'){
+                var data = await fetchurl.get(UrlApi + "/Recipients/" + id + "?singer=true");
+                document.querySelector('.ModalEditbody').innerHTML = `
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditSenderText" placeholder="jhondoe" required value = '${data.Name}'>
+                        <label for="EditSenderText">Username</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="number" class="form-control" id="EditSenderphone" placeholder="phone" required value = '0${data.Phone}'>
+                        <label for="EditSenderphone">Phone</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control" id="EditSenderAddress" placeholder="Address" required value = '${data.Address}'>
+                        <label for="EditSenderAddress">Address</label>
+                    </div>
+                `
+                document.querySelector('.summitedit').classList.add('btn-Update');
+                document.querySelector('.summitedit').classList.remove('btn-Update-servce');
+            }else if(name == 'Servce'){
+                var data = await fetchurl.get(UrlApi + "/Servces/" + id);
+                document.querySelector('.ModalEditbody').innerHTML = `
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditServceText" placeholder="jhondoe" required value = '${data.Name}'>
+                        <label for="EditServceText">Name Servce</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="number" class="form-control" id="EditServcephone" placeholder="phone" required value = '${data.Money}'>
+                        <label for="EditServcephone">Money</label>
+                    </div>
+                `
+                document.querySelector('.summitedit').classList.remove('btn-Update');
+                document.querySelector('.summitedit').classList.add('btn-Update-servce');
+            }
+            
             show("#ModalEdit");
             return document.querySelector("#ModalEdit").dataset.id = id;
         }
-        function deletesenderinfo(id){
+        function deletesenderinfo(id,name){
             if(confirm("Are you sure ??") == true){
-                return fetchurl.delete(UrlApi + "/Recipients/" +  id, (loi, data) => {
+                return fetchurl.delete(UrlApi + "/"+name+"/" +  id, (loi, data) => {
                     if (loi) {
                         alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
                         return location.reload();
@@ -340,15 +460,7 @@
                 })
             }
         }
-        function changImg(img,idfile,index){
-            document.querySelector(img).src = URL.createObjectURL(document.querySelector(idfile).files[index])
-        }
-        function show(taget){
-            return document.querySelector(taget).classList.add('showmodal');
-        }
-        function hide(taget){
-            return document.querySelector(taget).classList.remove('showmodal');
-        }
+
     </script>
 
 }
