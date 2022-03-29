@@ -86,7 +86,7 @@ namespace Api
                 }
             }
 
-            return NoContent();
+            return Ok(new { Startus = "Done" });
         }
 
         // POST: api/Users

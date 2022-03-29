@@ -84,5 +84,7 @@ var UrlApi = "https://localhost:7193/api";
 var UrlLogin = "/Login";
 var UrlUser = "/Users";
 var UrlImagerName = '/Imager?name=';
+var UrlImager = '/Imager';
+
 
 

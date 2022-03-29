@@ -46,7 +46,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>*@
 
@@ -119,6 +119,11 @@
         }
         .btn_sign_up , .btn_sign_in {
             cursor: pointer;
+        }
+        .showmodal{
+            opacity: 1;
+            display: block;
+            background: rgb(48 48 48 / 48%);
         }
     </style>
 </head>
@@ -216,7 +221,7 @@
                 <h3 class="text-primary">Robin Post</h3>
             </a>
             <div class="navbar-nav w-100">
-                <a href="Index" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
+                <a href="Index" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Home</a>
                 <a href="tao-don" class="nav-item nav-link "><i class="fa fa-laptop me-2"></i>Create orders</a>
                 <a href="quan-ly-van-don" class="nav-item nav-link"><i class="far fa-address-book me-2"></i>Bill of lading management</a>
                 <a href="thong-ke-tien-hang" class="nav-item nav-link"><i class="fas fa-chart-bar me-2"></i>Cash statistícs</a>
@@ -348,19 +353,24 @@
     <!-- JavaScript Libraries -->
     <script>
         var app = {
-    login: false,
-
-}
+            login: false,
+            handercommands: []
+        }
+        var load = {
+            on: () => document.getElementById("spinner").classList.add('show'),
+            off: () => document.getElementById("spinner").classList.remove('show')
+        }
 app.checklogin = async () => {
-    console.log("1")
     var token = getCookie("Token");
     if (token == "") {
         return app.login = false;
     } else {
+       load.on();
         try {
             var checkacc = await fetchurl.get(UrlApi + UrlLogin + '?user=' + token);
             if (checkacc.Status == "Error") {
                 alert("Tài Khoản k tồn tại");
+                document.getElementById("spinner").classList.remove('show');
                 return app.login = false;
             } else {
                 var time = new Date().getTime();
@@ -377,6 +387,7 @@ app.checklogin = async () => {
     }
 }
 app.render = async () => {
+    load.on();
     var time = new Date().getTime();
     if (!app.login) {
         document.querySelector('.main').classList.add("hide");
@@ -384,11 +395,13 @@ app.render = async () => {
         document.querySelector('.singup_class').classList.add("hide");
         setCookie("UserID", " ", time);
         setCookie("Token", " ", time);
-        return true;
+        
+        return load.off();
     } else {
         document.querySelector('.main').classList.remove("hide");
         document.querySelector('.login_class').classList.add("hide");
         document.querySelector('.singup_class').classList.add("hide");
+        document.getElementById("spinner").classList.remove('show');
         app.dataUser = await fetchurl.get(UrlApi + UrlUser + "/" + getCookie("UserID"))
         $(".menu_setting").html(`
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -396,11 +409,11 @@ app.render = async () => {
                 <span class="d-none d-lg-inline-flex">${app.dataUser.name}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <div  class="dropdown-item">My Profile</div>
-                <div  class="dropdown-item">Settings</div>
+                <a href="cau-hinh-tai-khoan"  class="dropdown-item">My Profile</a>
                 <div  class="dropdown-item logout">Log Out</div>
             </div>
         `)
+        return load.off();;
     }
 }
 
@@ -473,10 +486,10 @@ app.handerevent = () => {
 
 
 app.start = async () => {
-    console.log("1")
     await app.checklogin();
     await app.render();
     await app.handerevent();
+    app.handercommands.forEach(a => a());
 }
 
 
@@ -485,6 +498,7 @@ app.start();
     
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

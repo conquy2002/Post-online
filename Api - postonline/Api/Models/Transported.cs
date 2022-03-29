@@ -9,7 +9,7 @@ namespace Api.Models
         public int PayAfterRecieve { get; set; }
         public int PaymentInAdvance { get; set; }
 
-        public ICollection<TransportFee> TransportFees { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<TransportFee>? TransportFees { get; set; }
+        public ICollection<Product>? Products { get; set; }
     }
 }

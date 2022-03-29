@@ -20,5 +20,7 @@ namespace Api.Data
         public DbSet<Api.Models.Product> Product { get; set; }
 
         public DbSet<Api.Models.Order> Order { get; set; }
+
+        public DbSet<Api.Models.Recipient> Recipient { get; set; }
     }
 }

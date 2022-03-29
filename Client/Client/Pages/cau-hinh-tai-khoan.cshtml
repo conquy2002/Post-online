@@ -5,68 +5,350 @@
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-12 col-xl-2 d-flex flex-column">
-            <button type="button" class="btn btn-sm btn-primary m-2 btn-acc-1 btn-acc">ACCOUNT INFORMATION</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc-2 btn-acc">CHANGE THE PASSWORD</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc-3 btn-acc">Primary</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc-4 btn-acc">Primary</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc-5 btn-acc">Primary</button>
-            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc-6 btn-acc">Primary</button>
+            <button type="button" class="btn btn-sm btn-outline-primary btn-primary m-2 btn-acc" data-item = "0">ACCOUNT INFORMATION</button>
+            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "1">CHANGE THE PASSWORD</button>
+            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "2">SENDER INFORMATION SETTING</button>
+@*            <button type="button" class="btn btn-sm btn-outline-primary m-2 btn-acc">Primary</button>
+            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc">Primary</button>
+            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc">Primary</button>*@
+        </div>
+        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-0 " >
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">ACCOUNT INFORMATION</h6>
+                <div id = "ACCOUNT_INFORMATION">
+                </div>
+                <button type="button" class="btn btn-primary m-2 ACCOUNT_INFORMATION_submit">Save</button>
+                <button type="button" class="btn btn-light m-2 cancer">Cancer </button>
+            </div>
         </div>
         <div class="col-sm-12 col-xl-10 setting-acc setting-acc-1 d-none" >
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">ACCOUNT INFORMATION</h6>
-                <form>
-                    <div class="mb-3">
-                        <label for="InputNamecusstomer1" class="form-label">Name of customer, company</label>
-                        <input type="text" class="form-control" id="InputNamecusstomer1"
-                            aria-describedby="emailHelp">
-                
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Email</label>
-                        <input type="gmail" class="form-control" id="InputEmail1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">Phone number</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">ID card/ Tax code</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">Permanent address / Invoice address</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">Address *</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
-                    </div>
-                    <button type="button" class="btn btn-primary m-2">Save</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-1" >
-            <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">CHANGE THE PASSWORD</h6>
-                <form>
-                                
+                <form>      
                     <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Password</label>
-                        <input type="gmail" class="form-control" id="InputEmail1">
+                        <label for="InputPassold" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="InputPassold">
                     </div>
                     <div class="mb-3">
                         <label for="InputPhone1" class="form-label">A new password</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
+                        <input type="password" class="form-control" id="InputPassnew" required>
                     </div>
                     <div class="mb-3">
                         <label for="InputPhone1" class="form-label">Enter the password</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
+                        <input type="password" class="form-control" id="InputPassnewcon" required>
                     </div>
                                 
-                    <button type="button" class="btn btn-primary m-2">Save</button>
+                    <button type="button" class="btn btn-primary m-2 CHANGE_THE_PASSWORD_submit">Save</button>
+                    <button type="button" class="btn btn-light m-2 cancer">Cancer </button>
                 </form>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-2 d-none" >
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">SENDER INFORMATION SETTING</h6>
+                <button type="button" class="btn btn-outline-danger m-2" onclick = "show('#ModalAddSender')">Add Sender</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "SENDER_INFORMATION_SETTING">
+                    </tbody>
+                </table>         
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="ModalEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalEdit')">&times;</button>
+            <h4 class="modal-title">Edit</h4>
+        </div>
+        <div class="modal-body ModalEditbody">
+        </div>
+        <div class="modal-footer ModalEditfooter">
+            <button type="button" class="btn btn-primary btn-Update">Update</button>
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalEdit')">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalAddSender" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
+            <h4 class="modal-title">Add Sender</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="AddSenderText" placeholder="jhondoe" required>
+                <label for="AddSenderText">Username</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
+                <label for="AddSenderphone">Phone</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="AddSenderAddress" placeholder="Address" required>
+                <label for="AddSenderAddress">Address</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-AddSender">Add</button>
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        var cauhinhtaikhoan = () => {
+            if(!app.login) return;
+            var btn_acc_s = document.querySelectorAll(".btn-acc");
+            var setting_acc_s = document.querySelectorAll(".setting-acc");
+            var ACCOUNT_INFORMATION_id = document.getElementById('ACCOUNT_INFORMATION');
+            
+            var data = app.dataUser;
+            //render
+            ACCOUNT_INFORMATION_id.innerHTML = `
+                <div class="mb-3">
+                    <label for="InputNamecusstomer1" class="form-label">Avatar</label>
+                    <img src = "${UrlApi + UrlImagerName + app.dataUser.avatar}" style = "width: 100px;height: 100px;object-fit: cover;" id = "show_avt_profile">
+                    <input type="file" class = "form-control" id = "inputImg" accept=".jpg, .jpeg, .png"  onchange = "changImg('#show_avt_profile','#inputImg',0)">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="InputNamecusstomer1" class="form-label">Name of customer, company</label>
+                    <input type="text" class="form-control" id="InputNamecusstomer1"
+                        value = "${data.name}" >
+                
+                </div>
+                <div class="mb-3">
+                    <label for="InputEmail1" class="form-label">Email</label>
+                    <input type="gmail" class="form-control" id="InputEmail1" value = "${data.email}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="InputPhone1" class="form-label">Phone number</label>
+                    <input type="text" class="form-control" id="InputPhone1" value = "${data.phone}" >
+                </div>
+                <div class="mb-3">
+                    <label for="InputAddress1" class="form-label">Address *</label>
+                    <input type="text" class="form-control" id="InputAddress1" value = "${data.address}">
+                </div>
+            
+            `
+            renderSender();
+            //endrender
+
+
+            //post
+            //post thông tin
+            document.querySelector('.ACCOUNT_INFORMATION_submit').onclick = async () => {
+                var avatar = document.querySelector('#inputImg').files[0];
+                var avatarname = app.dataUser.avatar;
+                if(avatar != undefined){
+                    avatarname = `${app.dataUser.id}_avt.jpg`;
+                    const formdata = new FormData();
+                    formdata.append('file',avatar, avatarname);
+                    await fetchurl.post(UrlApi + '/Imager',formdata,{},(err,data)=> {
+                        if(err != null) {
+                            console.log(JSON.stringify(err));
+                            return alert("Vui lòng thửu lại sau")
+                        }
+                    })
+                }
+                var dataalluser = await fetchurl.get(UrlApi + UrlUser + "/" + getCookie("UserID") + "?all=true")
+                await fetchurl.put(UrlApi + UrlUser + `/${app.dataUser.id}` , {
+                    "id": app.dataUser.id,
+                    "name": $("#InputNamecusstomer1").val(),
+                    "password": dataalluser.Password,
+                    "avatar": avatarname,
+                    "isAdmin": false,
+                    "token": dataalluser.Token,
+                    "phone": $("#InputPhone1").val(),
+                    "email": $("#InputEmail1").val(),
+                    "address": $("#InputAddress1").val(),
+                    "orders": dataalluser.Orders
+                },(err,d) => {
+                    if(err) { 
+                        JSON.stringify(err)
+                        return alert("Vui lòng thử lại sau")
+                    }
+                } )
+                return location.reload();
+            }
+            //end post thông tin
+            //post đổi mk
+            document.querySelector('.CHANGE_THE_PASSWORD_submit').onclick = async () => {
+                var confirmationRePassword = $("#InputPassold").val();
+                var InputPassnew = $("#InputPassnew").val();
+                var InputPassnewcon = $("#InputPassnewcon").val();
+
+                var pwdmd5 = md5(md5(confirmationRePassword));
+                var token = md5(app.dataUser.email + pwdmd5);
+                
+                if(token != getCookie("Token")) return alert("Vui lòng nhập lại mật khẩu");
+                if(InputPassnew != InputPassnewcon) return alert("Mật khẩu không trùng khớp");
+              
+                var pwdmd5new = md5(md5(InputPassnew));
+                if(pwdmd5new == pwdmd5) return alert("Mật khẩu không được giống mật khẩu cũ");
+                var dataalluser = await fetchurl.get(UrlApi + UrlUser + "/" + getCookie("UserID") + "?all=true")
+                var tokennew = md5(app.dataUser.email + pwdmd5new);
+                await fetchurl.put(UrlApi + UrlUser + `/${app.dataUser.id}` , {
+                    "id": app.dataUser.id,
+                    "name": dataalluser.Name,
+                    "password": pwdmd5new,
+                    "avatar": dataalluser.Avatar,
+                    "isAdmin": dataalluser.IsAdmin,
+                    "token": tokennew,
+                    "phone": dataalluser.Phone,
+                    "email": dataalluser.Email,
+                    "address": dataalluser.Address,
+                    "orders": dataalluser.Orders
+                },(err,d) => {
+                    if(err) { 
+                        JSON.stringify(err)
+                        return alert("Vui lòng thử lại sau")
+                    }
+                } )
+                return location.reload();
+
+            }
+            //end đổi mk
+
+            //handerevent
+            for(var i = 0 ; i < btn_acc_s.length ; i++){
+                btn_acc_s[i].onclick = function check(){
+                    btn_acc_s.forEach( a => {
+                        a.classList.remove('btn-primary');
+                    })
+                    setting_acc_s.forEach( b => b.classList.add('d-none') );
+                    document.querySelector(`.setting-acc-${this.dataset.item}`).classList.remove('d-none');
+                    this.classList.add('btn-primary')
+                }
+            }
+            
+            document.querySelector('.btn-AddSender').onclick = async () => {
+                return fetchurl.post(UrlApi + "/Recipients", {
+                    "name": $("#AddSenderText").val(),
+                    "userID": app.dataUser.id,
+                    "phone": $("#AddSenderphone").val(),
+                    "address": $("#AddSenderAddress").val(),
+                }, false, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert(data.Message)
+                    return location.reload();
+                })
+            };
+            document.querySelector('.btn-Update').onclick = async () => {
+                return fetchurl.put(UrlApi + "/Recipients/" +  document.querySelector("#ModalEdit").dataset.id , {
+                    "id": document.querySelector("#ModalEdit").dataset.id,
+                    "name": $("#EditSenderText").val(),
+                    "userID": app.dataUser.id,
+                    "phone": $("#EditSenderphone").val(),
+                    "address": $("#EditSenderAddress").val(),
+                }, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+            
+            document.querySelector('.cancer').onclick = () => location.reload();
+        }
+        async function renderSender (name) {
+            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = "";
+            load.on();
+            var data = await fetchurl.get(UrlApi + "/Recipients/" + getCookie("UserID"));
+            var body = "";
+            for(var i = 0; i < data.length ; i++){
+                body += `<tr>
+                            <th scope="row">${(i+1)}</th>
+                            <td>${data[i].Name}</td>
+                            <td>${data[i].Phone}</td>
+                            <td>${data[i].Address}</td>
+                            <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${data[i].Id})">Edit</button></td>
+                            <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${data[i].Id})">Delete</button></td>
+                        </tr>`
+            }
+            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = body;
+            return load.off();
+        }
+        app.handercommands.push(cauhinhtaikhoan);
+        async function editsenderinfo(id){
+            var data = await fetchurl.get(UrlApi + "/Recipients/" + id + "?singer=true");
+            document.querySelector('.ModalEditbody').innerHTML = `
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="EditSenderText" placeholder="jhondoe" required value = '${data.Name}'>
+                    <label for="EditSenderText">Username</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="number" class="form-control" id="EditSenderphone" placeholder="phone" required value = '0${data.Phone}'>
+                    <label for="EditSenderphone">Phone</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="EditSenderAddress" placeholder="Address" required value = '${data.Address}'>
+                    <label for="EditSenderAddress">Address</label>
+                </div>
+            `
+            show("#ModalEdit");
+            return document.querySelector("#ModalEdit").dataset.id = id;
+        }
+        function deletesenderinfo(id){
+            if(confirm("Are you sure ??") == true){
+                return fetchurl.delete(UrlApi + "/Recipients/" +  id, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            }
+        }
+        function changImg(img,idfile,index){
+            document.querySelector(img).src = URL.createObjectURL(document.querySelector(idfile).files[index])
+        }
+        function show(taget){
+            return document.querySelector(taget).classList.add('showmodal');
+        }
+        function hide(taget){
+            return document.querySelector(taget).classList.remove('showmodal');
+        }
+    </script>
+
+}

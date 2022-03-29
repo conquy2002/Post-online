@@ -10,11 +10,6 @@ namespace Api.Controllers
     [ApiController]
     public class ImagerController : Controller
     {
-        private readonly ApiContext _context;
-        public ImagerController(ApiContext context)
-        {
-            _context = context;
-        }
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload(IFormFile file)
         {
