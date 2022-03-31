@@ -9,8 +9,22 @@
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">SENDER</h6>
                 <button type="button" class="btn btn-outline-danger m-2" onclick = "show('#ModalAddSender')">Add Sender</button>
-                <select class="form-select" id="SelectinfoSender" onchange = "onchangeselectinfosender()">
+                <select class="form-select" id="SelectinfoSender" onchange = "onchangeselectinfosender('SelectinfoSender')">
                 </select>
+                <br/>
+                <h6 class="mb-4">Recipient</h6>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="AddSenderText" placeholder="jhondoe" required>
+                    <label for="AddSenderText">Username</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
+                    <label for="AddSenderphone">Phone</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
+                    <label for="AddSenderAddress">Address</label>
+                </div>
             </div>
         </div>
         <div class="col-sm-12 col-xl-6">
@@ -24,26 +38,25 @@
                 
                     </div>
                     <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Item name</label>
-                        <input type="gmail" class="form-control" id="InputEmail1">
+                        <label for="InputEmail1" class="form-label">Item name (*)</label>
+                        <input type="text" class="form-control" id="InputEmail1" required>
                     </div>
                     <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">Quantity</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
+                        <label for="InputEmail1" class="form-label">Number (*)</label>
+                        <input type="number" class="form-control" id="InputEmail1" required>
                     </div>
+                     <label for="InputPhone1" class="form-label">Type</label>
+                     <select class="form-select" id="SelectType" onchange = "onchangeselectinfosender('SelectType')">
+                    </select>
                     <div class="mb-3">
-                        <label for="InputNamecusstomer1" class="form-label">Weight </label>
-                        <input type="text" class="form-control" id="InputNamecusstomer1"
-                            aria-describedby="emailHelp">
+                        <label for="InputNamecusstomer1" class="form-label">Weight (*)</label>
+                        <input type="number" class="form-control" id="InputNamecusstomer1"
+                            aria-describedby="emailHelp" required>
                 
                     </div>
                     <div class="mb-3">
                         <label for="InputEmail1" class="form-label">Value </label>
-                        <input type="gmail" class="form-control" id="InputEmail1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">Size</label>
-                        <input type="gmail" class="form-control" id="InputPhone1">
+                        <input type="number" class="form-control" id="InputEmail1">
                     </div>
                 </form>
             </div>
@@ -51,15 +64,8 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">CHOOSE A SERVICE</h6>
-                <form>
-                    <select class="form-select" id="floatingSelect"
-                        aria-label="Floating label select example">
-                        <option selected>Select promo code</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </form>
+                <select class="form-select" id="SelectService" onchange = "onchangeselectinfosender('SelectService')">
+                </select>
             </div>
         </div>
         <div class="col-sm-12 col-xl-6">
@@ -68,7 +74,7 @@
                 <form>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                            value="option1">
+                            value="option1" checked>
                         <label class="form-check-label" for="inlineRadio1">Sender </label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -148,6 +154,7 @@
 </div>
 @section Scripts {
     <script>
+        renderCity(cactinh)
         var taodon =  () => {
             //render
             if(!app.login) return;
@@ -184,12 +191,13 @@
             //end hander event
             
         }
-        function onchangeselectinfosender(){
-            return document.getElementById('SelectinfoSender').dataset.select = document.getElementById('SelectinfoSender').value;
+        function onchangeselectinfosender(name){
+            return document.getElementById(name).dataset.select = document.getElementById(name).value;
         }
         async function renderInfoSender(){
             load.on();
             var datainfosender = await fetchurl.get(UrlApi + "/Recipients/" + getCookie("UserID"));
+            
             var body = "";
             for(var i = 0; i < datainfosender.length ; i++){
                 let text = datainfosender[i].Name + `-` + (datainfosender[i].Address.length > 25 ?  datainfosender[i].Address.substring(0,24)+"..." : datainfosender[i].Address) + '- 0' + datainfosender[i].Phone 
@@ -198,6 +206,24 @@
             }
             document.getElementById('SelectinfoSender').innerHTML = body;
             document.getElementById('SelectinfoSender').dataset.select = datainfosender[0].Id;
+            var dataservice = await fetchurl.get(UrlApi + "/Servces");
+            var body = "";
+            for(var i = 0; i < dataservice.length ; i++){
+                if(i == 0) body += `<option selected value = '${dataservice[i].Id}' >${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
+                    else body += `<option value = '${dataservice[i].Id}'>${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
+            }
+            document.getElementById('SelectService').innerHTML = body;
+            document.getElementById('SelectService').dataset.select = datainfosender[0].Id;
+
+            var dataservice = await fetchurl.get(UrlApi + "/TransportFees");
+            var body = "";
+            for(var i = 0; i < dataservice.length ; i++){
+                if(i == 0) body += `<option selected value = '${dataservice[i].Id}' >${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
+                    else body += `<option value = '${dataservice[i].Id}'>${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
+            }
+            document.getElementById('SelectType').innerHTML = body;
+            document.getElementById('SelectType').dataset.select = datainfosender[0].Id;
+            
             return load.off();
         }
         app.handercommands.push(taodon);

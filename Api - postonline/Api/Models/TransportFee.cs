@@ -10,7 +10,7 @@ namespace Api.Models
         public string? Weith { get; set; }
         public string? Distance { get; set; }
         public string? Type { get; set; }
-        public int TotalFee { get; set; }
-        public Transported? Transported { get; set; }
+        public int? Money { get; set; }
+
     }
 }

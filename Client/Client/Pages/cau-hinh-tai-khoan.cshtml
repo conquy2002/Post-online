@@ -79,6 +79,28 @@
                 </table>         
             </div>
         </div>
+        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-4 d-none" >
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Transport Fee SETTING</h6>
+                <button type="button" class="btn btn-outline-danger m-2" onclick = "show('#ModalAddTransportFee')">Add TransportFee</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Money</th>
+
+                            <th scope="col">Weith</th>
+                            
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "Transport_Fee_SETTING">
+                    </tbody>
+                </table>         
+            </div>
+        </div>
     </div>
 </div>
 
@@ -94,6 +116,34 @@
         <div class="modal-footer ModalEditfooter">
             <button type="button" class="btn btn-primary summitedit">Update</button>
             <button type="button" class="btn btn-default" onclick = "hide('#ModalEdit')">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalAddTransportFee" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddTransportFee')">&times;</button>
+            <h4 class="modal-title">Add Servce</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="AddTransportFeeType" placeholder="jhondoe" required>
+                <label for="AddTransportFeeType">Type</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="number" class="form-control" id="AddTransportFeeWeith" placeholder="phone" required>
+                <label for="AddTransportFeeWeith">Weith</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="number" class="form-control" id="AddTransportFeeMoney" placeholder="phone" required>
+                <label for="AddTransportFeeMoney">Money</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary  btn-AddTransportFee ">Add</button>
+            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddTransportFee')">Close</button>
         </div>
         </div>
     </div>
@@ -138,10 +188,12 @@
                 <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
                 <label for="AddSenderphone">Phone</label>
             </div>
+  
             <div class="form-floating mb-4">
-                <input type="text" class="form-control" id="AddSenderAddress" placeholder="Address" required>
+                <input type="number" class="form-control" id="AddSenderAddress" placeholder="phone" required>
                 <label for="AddSenderAddress">Address</label>
             </div>
+
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary btn-AddSender">Add</button>
@@ -152,6 +204,7 @@
 </div>
 @section Scripts {
     <script>
+        
         var cauhinhtaikhoan = async () => {
             if(!app.login) return;
             var btn_acc_s = document.querySelectorAll(".btn-acc");
@@ -182,10 +235,10 @@
                     <input type="text" class="form-control" id="InputPhone1" value = "${data.phone}" >
                 </div>
                 <div class="mb-3">
-                    <label for="InputAddress1" class="form-label">Address *</label>
-                    <input type="text" class="form-control" id="InputAddress1" value = "${data.address}">
+                    <label for="InputPhone1" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="InputPhone1" value = "${data.address}" >
                 </div>
-            
+               
             `
             document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = "";
             load.on();
@@ -206,7 +259,9 @@
             }
             document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = body;
             if(dataalluser.IsAdmin) {
-                $(".chose_setting").append(' <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "3">SERVICE SETTING</button>')
+                $(".chose_setting").append(` <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "3">SERVICE SETTING</button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "4">Transport Fee SETTING</button>`)
+                
                 var dataallservce = await fetchurl.get(UrlApi + "/Servces")
                 var body = "";
                 for(var i = 0; i < dataallservce.length ; i++){
@@ -214,11 +269,24 @@
                                 <th scope="row">${(i+1)}</th>
                                 <td>${dataallservce[i].Name}</td>
                                 <td>${dataallservce[i].Money}</td>
-                                <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${dataallservce[i].Id},'Servce')">Edit</button></td>
-                                <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${dataallservce[i].Id},'Servce')">Delete</button></td>
+                                <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${dataallservce[i].Id},'Servces')">Edit</button></td>
+                                <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${dataallservce[i].Id},'Servces')">Delete</button></td>
                             </tr>`
                 }
                 document.getElementById('SERVICE_SETTING_SETTING').innerHTML = body;
+                var TransportFees = await fetchurl.get(UrlApi + "/TransportFees")
+                var body = "";
+                for(var i = 0; i < TransportFees.length ; i++){
+                    body += `<tr>
+                                <th scope="row">${(i+1)}</th>
+                                <td>${TransportFees[i].Type}</td>
+                                <td>${TransportFees[i].Money}</td>
+                                <td>${TransportFees[i].Weith}</td>
+                                <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${TransportFees[i].Id},'TransportFees')">Edit</button></td>
+                                <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${TransportFees[i].Id},'TransportFees')">Delete</button></td>
+                            </tr>`
+                }
+                document.getElementById('Transport_Fee_SETTING').innerHTML = body;
 
             }
             load.off();
@@ -314,6 +382,28 @@
                     this.classList.add('btn-primary')
                 }
             }
+            document.querySelector('.btn-AddTransportFee').onclick = async () => {
+                return fetchurl.post(UrlApi + "/TransportFees", {
+                    "weith": $("#AddTransportFeeWeith").val(),
+                    "distance": " ",
+                    "type": $("#AddTransportFeeType").val(),
+                    "money": $("#AddTransportFeeMoney").val()
+
+                }, false, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
             
             document.querySelector('.btn-AddSender').onclick = async () => {
                 return fetchurl.post(UrlApi + "/Recipients", {
@@ -356,50 +446,6 @@
                     return location.reload();
                 })
             };
-            if(document.querySelector('.btn-Update')) document.querySelector('.btn-Update').onclick = async () => {
-                return fetchurl.put(UrlApi + "/Recipients/" +  document.querySelector("#ModalEdit").dataset.id , {
-                    "id": document.querySelector("#ModalEdit").dataset.id,
-                    "name": $("#EditSenderText").val(),
-                    "userID": app.dataUser.id,
-                    "phone": $("#EditSenderphone").val(),
-                    "address": $("#EditSenderAddress").val(),
-                }, (loi, data) => {
-                    if (loi) {
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
-                        return location.reload();
-                    }
-
-                    if (data.Status == "Error" || data.errors) {
-                        alert(data.message ? data.message : data.errors);
-                        console.log(data)
-                        return location.reload()
-                    }
-                    alert("done")
-                    return location.reload();
-                })
-            };
-
-            if(document.querySelector('.btn-Update-servce')) document.querySelector('.btn-Update-servce').onclick = async () => {
-                return fetchurl.put(UrlApi + "/Servces/" +  document.querySelector("#ModalEdit").dataset.id , {
-                    "id": document.querySelector("#ModalEdit").dataset.id,
-                    "name": $("#EditServceText").val(),
-                    "Money": $("#EditServcephone").val()
-                }, (loi, data) => {
-                    if (loi) {
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
-                        return location.reload();
-                    }
-
-                    if (data.Status == "Error" || data.errors) {
-                        alert(data.message ? data.message : data.errors);
-                        console.log(data)
-                        return location.reload()
-                    }
-                    alert("done")
-                    return location.reload();
-                })
-            };
-            
             document.querySelector('.cancer').onclick = () => location.reload();
         }
 
@@ -423,6 +469,30 @@
                 `
                 document.querySelector('.summitedit').classList.add('btn-Update');
                 document.querySelector('.summitedit').classList.remove('btn-Update-servce');
+                document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
+                document.querySelector('.btn-Update').onclick = async () => {
+                return fetchurl.put(UrlApi + "/Recipients/" +  document.querySelector("#ModalEdit").dataset.id , {
+                    "id": document.querySelector("#ModalEdit").dataset.id,
+                    "name": $("#EditSenderText").val(),
+                    "userID": app.dataUser.id,
+                    "phone": $("#EditSenderphone").val(),
+                    "address": $("#EditSenderAddress").val(),
+                }, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+
             }else if(name == 'Servce'){
                 var data = await fetchurl.get(UrlApi + "/Servces/" + id);
                 document.querySelector('.ModalEditbody').innerHTML = `
@@ -435,10 +505,74 @@
                         <label for="EditServcephone">Money</label>
                     </div>
                 `
+
                 document.querySelector('.summitedit').classList.remove('btn-Update');
                 document.querySelector('.summitedit').classList.add('btn-Update-servce');
+                document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
+                document.querySelector('.btn-Update-servce').onclick = async () => {
+                return fetchurl.put(UrlApi + "/Servces/" +  document.querySelector("#ModalEdit").dataset.id , {
+                    "id": document.querySelector("#ModalEdit").dataset.id,
+                    "name": $("#EditServceText").val(),
+                    "Money": $("#EditServcephone").val()
+                }, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+
+            }else if(name == 'TransportFees'){
+                var data = await fetchurl.get(UrlApi + "/TransportFees/" + id);
+                document.querySelector('.ModalEditbody').innerHTML = `
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditTransportFeesText" placeholder="jhondoe" required value = '${data.Type}'>
+                        <label for="EditTransportFeesText">Type</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditTransportFeesWeith" placeholder="jhondoe" required value = '${data.Weith}'>
+                        <label for="EditTransportFeesWeith">Weith</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditTransportFeesMoney" placeholder="jhondoe" required value = '${data.Money}'>
+                        <label for="EditTransportFeesMoney">Money</label>
+                    </div>
+                `
+                document.querySelector('.summitedit').classList.remove('btn-Update');
+                document.querySelector('.summitedit').classList.remove('btn-Update-servce');
+                document.querySelector('.summitedit').classList.add('btn-Update-tranpostfee');
+                document.querySelector('.btn-Update-tranpostfee').onclick = async () => {
+                return fetchurl.put(UrlApi + "/TransportFees/" +  document.querySelector("#ModalEdit").dataset.id , {
+                    "id": document.querySelector("#ModalEdit").dataset.id,
+                    "weith": $("#EditTransportFeesWeith").val(),
+                    "distance": " ",
+                    "type": $("#EditTransportFeesText").val(),
+                    "money": $("#EditTransportFeesMoney").val()
+                }, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+
             }
-            
             show("#ModalEdit");
             return document.querySelector("#ModalEdit").dataset.id = id;
         }

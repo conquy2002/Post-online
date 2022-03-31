@@ -83,6 +83,7 @@
     <link href="~/css//style.css" rel="stylesheet">
         <script src="~/js/config.js"></script>
     <script src="~/js/md5.js"></script>
+    <script src="~/js/cache/datatinh.js"></script>
 
 
 
@@ -351,6 +352,7 @@
     </div>
 
     <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
         var app = {
             login: false,
@@ -495,15 +497,57 @@ app.start = async () => {
 
 app.start();
 
+function renderCity(data){
+    var citis = document.querySelectorAll(".city"); 
+    var district = document.querySelectorAll(".district");  
+    var ward =document.querySelectorAll(".ward"); 
+    for (const x of data) {
+        citis.forEach(a => a.options[a.options.length] = new Option(x.Name, x.Id))
+    }
+  // xứ lý khi thay đổi tỉnh thành thì sẽ hiển thị ra quận huyện thuộc tỉnh thành đó
+    citis.forEach(a => {
+        if(!a.dataset.acc) a.selectedIndex = "0";
+    })
+   citis.forEach(a => a.onchange = function () {
+        district.forEach(b => b.length = 1)
+        ward.forEach(b => b.length = 1)
+        if(this.value != ""){
+          const result = data.filter(n => n.Id === this.value);
+          var id = this.value;
+          for (const k of result[0].Districts) {
+            district.forEach(b => {
+                b.options[b.options.length] = new Option(k.Name, k.Id);
+                b.dataset.id = id;
+            } )
+          }
+        }
+    })
+
+   // xứ lý khi thay đổi quận huyện thì sẽ hiển thị ra phường xã thuộc quận huyện đó
+   district.forEach(b => b.onchange = function () {
+        ward.forEach(b => b.length = 1);
+        const dataCity = data.filter((n) => n.Id === this.dataset.id);
+        if (this.value != "") {
+          const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+          for (const w of dataWards) {
+              ward.forEach(b => b.options[b.options.length] = new Option(w.Name, w.Id))
+          }
+        }
+      })
+
+}
+
         function changImg(img,idfile,index){
             document.querySelector(img).src = URL.createObjectURL(document.querySelector(idfile).files[index])
         }
-        function show(taget){
+        async function show(taget){
             return document.querySelector(taget).classList.add('showmodal');
         }
         function hide(taget){
             return document.querySelector(taget).classList.remove('showmodal');
         }
+
     </script>
     
     <!-- Template Javascript -->

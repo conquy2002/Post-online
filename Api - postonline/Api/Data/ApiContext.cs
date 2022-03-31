@@ -24,5 +24,7 @@ namespace Api.Data
         public DbSet<Api.Models.Recipient> Recipient { get; set; }
 
         public DbSet<Api.Models.Servce> Servce { get; set; }
+
+        public DbSet<Api.Models.TransportFee> TransportFee { get; set; }
     }
 }

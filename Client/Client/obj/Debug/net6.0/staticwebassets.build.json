@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9cyeniyW01eRwKpCzoIpVHAjSQIyTLOLJB3cIZgAvFI=",
+  "Hash": "T0M6QUNiV1kBPqZoO9+zfkyq+HpGy4zaixJUwXfdofU=",
   "Source": "Client",
   "BasePath": "_content/Client",
   "Mode": "Default",
@@ -1205,6 +1205,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\user.jpg"
+    },
+    {
+      "Identity": "E:\\Project-Post-Online\\Post-online\\Client\\Client\\wwwroot\\js\\cache\\dataTinh.js",
+      "SourceId": "Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Project-Post-Online\\Post-online\\Client\\Client\\wwwroot\\",
+      "BasePath": "_content/Client",
+      "RelativePath": "js/cache/dataTinh.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\cache\\dataTinh.js"
     },
     {
       "Identity": "E:\\Project-Post-Online\\Post-online\\Client\\Client\\wwwroot\\js\\config.js",
