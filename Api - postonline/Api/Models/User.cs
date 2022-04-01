@@ -16,6 +16,6 @@ namespace Api.Models
         public string? Email { get; set; }
         public string? Address { get; set; }
 
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public virtual ICollection<Products> Products { get; set;} =  new List<Products>();
     }
 }

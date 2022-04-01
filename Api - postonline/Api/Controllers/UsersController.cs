@@ -43,8 +43,10 @@ namespace Api
             {
                 return user;
             }
+            
             else
             {
+               
                 return Ok(new
                 {
                     id = user.Id,

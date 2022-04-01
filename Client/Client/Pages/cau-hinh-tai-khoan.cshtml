@@ -27,11 +27,11 @@
                         <input type="password" class="form-control" id="InputPassold">
                     </div>
                     <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">A new password</label>
+                        <label for="InputPassnew" class="form-label">A new password</label>
                         <input type="password" class="form-control" id="InputPassnew" required>
                     </div>
                     <div class="mb-3">
-                        <label for="InputPhone1" class="form-label">Enter the password</label>
+                        <label for="InputPassnewcon" class="form-label">Enter the password</label>
                         <input type="password" class="form-control" id="InputPassnewcon" required>
                     </div>
                                 
@@ -70,6 +70,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Money</th>
+                            <th scope="col">Time</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
@@ -129,15 +130,17 @@
         </div>
         <div class="modal-body">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="AddTransportFeeType" placeholder="jhondoe" required>
+                <input type="text" class="form-control" id="AddTransportFeeType"  required>
                 <label for="AddTransportFeeType">Type</label>
             </div>
             <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddTransportFeeWeith" placeholder="phone" required>
+                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">G</span>
+                <input type="number" class="form-control" id="AddTransportFeeWeith"  required>
                 <label for="AddTransportFeeWeith">Weith</label>
             </div>
             <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddTransportFeeMoney" placeholder="phone" required>
+                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
+                <input type="number" class="form-control" id="AddTransportFeeMoney" " required>
                 <label for="AddTransportFeeMoney">Money</label>
             </div>
         </div>
@@ -161,8 +164,16 @@
                 <label for="AddServceText">Name Servce</label>
             </div>
             <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddServcephone" placeholder="phone" required>
+                <input type="number" class="form-control" id="AddServcephone"  required>
+         
+                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
+                
                 <label for="AddServcephone">Money</label>
+            </div>
+            <div class="form-floating mb-4">
+                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">day</span>
+                <input type="number" class="form-control" id="AddServceTime"  required>
+                <label for="AddServceTime">Time</label>
             </div>
         </div>
         <div class="modal-footer">
@@ -190,7 +201,7 @@
             </div>
   
             <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddSenderAddress" placeholder="phone" required>
+                <input type="number" class="form-control" id="AddSenderAddress"  required>
                 <label for="AddSenderAddress">Address</label>
             </div>
 
@@ -232,11 +243,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="InputPhone1" class="form-label">Phone number</label>
-                    <input type="text" class="form-control" id="InputPhone1" value = "${data.phone}" >
+                    <input type="text" class="form-control" id="InputPhone1" value = "0${data.phone}" >
                 </div>
                 <div class="mb-3">
-                    <label for="InputPhone1" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="InputPhone1" value = "${data.address}" >
+                    <label for="InputAddress1" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="InputAddress1" value = "${data.address}" >
                 </div>
                
             `
@@ -251,7 +262,7 @@
                 body += `<tr>
                             <th scope="row">${(i+1)}</th>
                             <td>${data[i].Name}</td>
-                            <td>${data[i].Phone}</td>
+                            <td>0${data[i].Phone}</td>
                             <td>${data[i].Address}</td>
                             <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${data[i].Id},'Recipients')">Edit</button></td>
                             <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${data[i].Id},'Recipients')">Delete</button></td>
@@ -269,6 +280,7 @@
                                 <th scope="row">${(i+1)}</th>
                                 <td>${dataallservce[i].Name}</td>
                                 <td>${dataallservce[i].Money}</td>
+                                <td>${dataallservce[i].Time}</td>
                                 <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${dataallservce[i].Id},'Servces')">Edit</button></td>
                                 <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${dataallservce[i].Id},'Servces')">Delete</button></td>
                             </tr>`
@@ -317,7 +329,7 @@
                     "name": $("#InputNamecusstomer1").val(),
                     "password": dataalluser.Password,
                     "avatar": avatarname,
-                    "isAdmin": false,
+                    "isAdmin": dataalluser.IsAdmin,
                     "token": dataalluser.Token,
                     "phone": $("#InputPhone1").val(),
                     "email": $("#InputEmail1").val(),
@@ -430,7 +442,8 @@
             document.querySelector('.btn-AddServce').onclick = async () => {
                 return fetchurl.post(UrlApi + "/Servces", {
                     "name": $("#AddServceText").val(),
-                    "money": $("#AddServcephone").val()
+                    "money": $("#AddServcephone").val(),
+                    "time": $("#AddServceTime").val()
                 }, false, (loi, data) => {
                     if (loi) {
                         alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
@@ -493,7 +506,7 @@
                 })
             };
 
-            }else if(name == 'Servce'){
+            }else if(name == 'Servces'){
                 var data = await fetchurl.get(UrlApi + "/Servces/" + id);
                 document.querySelector('.ModalEditbody').innerHTML = `
                     <div class="form-floating mb-3">
@@ -501,8 +514,14 @@
                         <label for="EditServceText">Name Servce</label>
                     </div>
                     <div class="form-floating mb-4">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
                         <input type="number" class="form-control" id="EditServcephone" placeholder="phone" required value = '${data.Money}'>
                         <label for="EditServcephone">Money</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">day</span>
+                        <input type="number" class="form-control" id="EditServceTime" placeholder="phone" required value = '${data.Time}'>
+                        <label for="EditServceTime">Time</label>
                     </div>
                 `
 
@@ -510,25 +529,26 @@
                 document.querySelector('.summitedit').classList.add('btn-Update-servce');
                 document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
                 document.querySelector('.btn-Update-servce').onclick = async () => {
-                return fetchurl.put(UrlApi + "/Servces/" +  document.querySelector("#ModalEdit").dataset.id , {
-                    "id": document.querySelector("#ModalEdit").dataset.id,
-                    "name": $("#EditServceText").val(),
-                    "Money": $("#EditServcephone").val()
-                }, (loi, data) => {
-                    if (loi) {
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
-                        return location.reload();
-                    }
+                    return fetchurl.put(UrlApi + "/Servces/" +  document.querySelector("#ModalEdit").dataset.id , {
+                        "id": document.querySelector("#ModalEdit").dataset.id,
+                        "name": $("#EditServceText").val(),
+                        "Money": $("#EditServcephone").val(),
+                        "time": $("#EditServceTime").val()
+                    }, (loi, data) => {
+                        if (loi) {
+                            alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                            return location.reload();
+                        }
 
-                    if (data.Status == "Error" || data.errors) {
-                        alert(data.message ? data.message : data.errors);
-                        console.log(data)
-                        return location.reload()
-                    }
-                    alert("done")
-                    return location.reload();
-                })
-            };
+                        if (data.Status == "Error" || data.errors) {
+                            alert(data.message ? data.message : data.errors);
+                            console.log(data)
+                            return location.reload()
+                        }
+                        alert("done")
+                        return location.reload();
+                    })
+                };
 
             }else if(name == 'TransportFees'){
                 var data = await fetchurl.get(UrlApi + "/TransportFees/" + id);
@@ -538,10 +558,12 @@
                         <label for="EditTransportFeesText">Type</label>
                     </div>
                     <div class="form-floating mb-3">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">G</span>
                         <input type="text" class="form-control" id="EditTransportFeesWeith" placeholder="jhondoe" required value = '${data.Weith}'>
                         <label for="EditTransportFeesWeith">Weith</label>
                     </div>
                     <div class="form-floating mb-3">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
                         <input type="text" class="form-control" id="EditTransportFeesMoney" placeholder="jhondoe" required value = '${data.Money}'>
                         <label for="EditTransportFeesMoney">Money</label>
                     </div>
@@ -551,27 +573,26 @@
                 document.querySelector('.summitedit').classList.add('btn-Update-tranpostfee');
                 document.querySelector('.btn-Update-tranpostfee').onclick = async () => {
                 return fetchurl.put(UrlApi + "/TransportFees/" +  document.querySelector("#ModalEdit").dataset.id , {
-                    "id": document.querySelector("#ModalEdit").dataset.id,
-                    "weith": $("#EditTransportFeesWeith").val(),
-                    "distance": " ",
-                    "type": $("#EditTransportFeesText").val(),
-                    "money": $("#EditTransportFeesMoney").val()
-                }, (loi, data) => {
-                    if (loi) {
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        "id": document.querySelector("#ModalEdit").dataset.id,
+                        "weith": $("#EditTransportFeesWeith").val(),
+                        "distance": " ",
+                        "type": $("#EditTransportFeesText").val(),
+                        "money": $("#EditTransportFeesMoney").val()
+                    }, (loi, data) => {
+                        if (loi) {
+                            alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                            return location.reload();
+                        }
+
+                        if (data.Status == "Error" || data.errors) {
+                            alert(data.message ? data.message : data.errors);
+                            console.log(data)
+                            return location.reload()
+                        }
+                        alert("done")
                         return location.reload();
-                    }
-
-                    if (data.Status == "Error" || data.errors) {
-                        alert(data.message ? data.message : data.errors);
-                        console.log(data)
-                        return location.reload()
-                    }
-                    alert("done")
-                    return location.reload();
-                })
-            };
-
+                    })
+                };
             }
             show("#ModalEdit");
             return document.querySelector("#ModalEdit").dataset.id = id;

@@ -17,14 +17,14 @@ namespace Api.Data
 
         public DbSet<Api.Models.User> User { get; set; }
 
-        public DbSet<Api.Models.Product> Product { get; set; }
-
-        public DbSet<Api.Models.Order> Order { get; set; }
-
         public DbSet<Api.Models.Recipient> Recipient { get; set; }
 
         public DbSet<Api.Models.Servce> Servce { get; set; }
 
         public DbSet<Api.Models.TransportFee> TransportFee { get; set; }
+
+        public DbSet<Api.Models.postaddress> postaddress { get; set; }
+
+        public DbSet<Api.Models.Products> Products { get; set; }
     }
 }

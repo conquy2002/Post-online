@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20220329183645_transpostfee")]
-    partial class transpostfee
+    [Migration("20220401094432_update1")]
+    partial class update1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,47 +24,7 @@ namespace Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Api.Models.Order", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Distance")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecipientId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ShippingStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("RecipientId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Api.Models.Product", b =>
+            modelBuilder.Entity("Api.Models.postaddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,32 +32,89 @@ namespace Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Details")
+                    b.Property<int>("Address")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("postaddress");
+                });
+
+            modelBuilder.Entity("Api.Models.Products", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code_orders")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FEE_PAYER")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Size")
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("TransportId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TransportedId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
+                    b.Property<string>("REQUEST_PICK_UP")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Weight")
+                    b.Property<string>("RecipientAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecipientName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecipientPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SendertPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Servce")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Total_charge")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransportFee")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Weith")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TransportedId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Api.Models.Recipient", b =>
@@ -140,28 +157,13 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Servce");
-                });
-
-            modelBuilder.Entity("Api.Models.Transported", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PayAfterRecieve")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentInAdvance")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Transported");
                 });
 
             modelBuilder.Entity("Api.Models.TransportFee", b =>
@@ -175,10 +177,7 @@ namespace Api.Migrations
                     b.Property<string>("Distance")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Money")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TransportedId")
+                    b.Property<int?>("Money")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -188,8 +187,6 @@ namespace Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TransportedId");
 
                     b.ToTable("TransportFee");
                 });
@@ -231,64 +228,18 @@ namespace Api.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Api.Models.Order", b =>
+            modelBuilder.Entity("Api.Models.Products", b =>
                 {
-                    b.HasOne("Api.Models.Product", "Product")
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.Recipient", "Recipient")
-                        .WithMany()
-                        .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.User", "User")
-                        .WithMany("Orders")
+                    b.HasOne("Api.Models.User", null)
+                        .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Recipient");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Api.Models.Product", b =>
-                {
-                    b.HasOne("Api.Models.Transported", "Transported")
-                        .WithMany("Products")
-                        .HasForeignKey("TransportedId");
-
-                    b.Navigation("Transported");
-                });
-
-            modelBuilder.Entity("Api.Models.TransportFee", b =>
-                {
-                    b.HasOne("Api.Models.Transported", null)
-                        .WithMany("TransportFees")
-                        .HasForeignKey("TransportedId");
-                });
-
-            modelBuilder.Entity("Api.Models.Product", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Api.Models.Transported", b =>
-                {
-                    b.Navigation("Products");
-
-                    b.Navigation("TransportFees");
                 });
 
             modelBuilder.Entity("Api.Models.User", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

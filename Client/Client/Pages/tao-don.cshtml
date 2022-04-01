@@ -13,17 +13,19 @@
                 </select>
                 <br/>
                 <h6 class="mb-4">Recipient</h6>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="AddSenderText" placeholder="jhondoe" required>
-                    <label for="AddSenderText">Username</label>
+
+                <div class="mb-3">
+                    <label for="AddRecipientText">Username (*)</label>
+                    <input type="text" class="form-control" id="AddRecipientText"  required>
+                    
                 </div>
-                <div class="form-floating mb-4">
-                    <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
-                    <label for="AddSenderphone">Phone</label>
+                <div class="mb-3">
+                    <label for="AddSenderphone">Phone (*)</label>
+                    <input type="number" class="form-control" id="AddRecipientphone" required>
                 </div>
-                <div class="form-floating mb-4">
-                    <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
-                    <label for="AddSenderAddress">Address</label>
+                <div class="mb-3">
+                    <label for="AddRecipientAddress">Address (*)</label>
+                    <input type="text" class="form-control" id="AddRecipientAddress"  required>
                 </div>
             </div>
         </div>
@@ -32,31 +34,27 @@
                 <h6 class="mb-4">COMMODITY INFORMATION</h6>
                 <form>
                     <div class="mb-3">
-                        <label for="InputNamecusstomer1" class="form-label">Code orders</label>
-                        <input type="text" class="form-control" id="InputNamecusstomer1"
-                            aria-describedby="emailHelp">
+                        <label for="InputCode_orders" class="form-label">Code orders</label>
+                        <input type="text" class="form-control" id="InputCode_orders">
+                    </div>
+                    <div class="mb-3">
+                        <label for="InputEmInputnameproductail1" class="form-label">Item name (*)</label>
+                        <input type="text" class="form-control" id="Inputnameproduct" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="InputNumberProduct" class="form-label">Number (*)</label>
+                        <input type="number" class="form-control" id="InputNumberProduct" required>
+                    </div>
+                     <div class = "mb-3">
+                         <label for="InputPhone1" class="form-label ">Type</label>
+                         <select class="form-select " id="SelectType" >
+                        </select>
+                     </div>
+                    <div class="mb-3">
+                        <label for="InputNumberProduct" class="form-label">Weight (*)</label>
+                        <input type="number" class="form-control" id="InputWeightProduct"
+                            required>
                 
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Item name (*)</label>
-                        <input type="text" class="form-control" id="InputEmail1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Number (*)</label>
-                        <input type="number" class="form-control" id="InputEmail1" required>
-                    </div>
-                     <label for="InputPhone1" class="form-label">Type</label>
-                     <select class="form-select" id="SelectType" onchange = "onchangeselectinfosender('SelectType')">
-                    </select>
-                    <div class="mb-3">
-                        <label for="InputNamecusstomer1" class="form-label">Weight (*)</label>
-                        <input type="number" class="form-control" id="InputNamecusstomer1"
-                            aria-describedby="emailHelp" required>
-                
-                    </div>
-                    <div class="mb-3">
-                        <label for="InputEmail1" class="form-label">Value </label>
-                        <input type="number" class="form-control" id="InputEmail1">
                     </div>
                 </form>
             </div>
@@ -64,7 +62,7 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">CHOOSE A SERVICE</h6>
-                <select class="form-select" id="SelectService" onchange = "onchangeselectinfosender('SelectService')">
+                <select class="form-select" id="SelectService">
                 </select>
             </div>
         </div>
@@ -73,28 +71,28 @@
                 <h6 class="mb-4">FEE PAYER</h6>
                 <form>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                            value="option1" checked>
-                        <label class="form-check-label" for="inlineRadio1">Sender </label>
+                        <input class="form-check-input" type="radio" name="SenderRadioOptions" id="inlineRadio1"
+                            value="Sender" checked>
+                        <label class="form-check-label" for="inlineRadio1">Sender</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            value="option2">
+                        <input class="form-check-input" type="radio" name="SenderRadioOptions" id="inlineRadio2"
+                            value="Recipient">
                         <label class="form-check-label" for="inlineRadio2">Recipient</label>
                     </div>
                 </form>
                 <h6 class="mb-4">REQUEST PICK UP</h6>
                 <form>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                            id="flexRadioDefault1">
+                        <input class="form-check-input" type="radio" name="REQUEST_PICK_UPRadioDefault"
+                            id="flexRadioDefault1" value="Home">
                         <label class="form-check-label" for="flexRadioDefault1">
                             Come pick up goods at home
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                            id="flexRadioDefault2" checked>
+                        <input class="form-check-input" type="radio" name="REQUEST_PICK_UPRadioDefault"
+                            id="flexRadioDefault2" checked value="post office">
                         <label class="form-check-label" for="flexRadioDefault2">
                             Sent at the post office
                         </label>
@@ -136,19 +134,14 @@
 <div class = "bg-secondary total  text-white  d-flex">
     <div class = "kg p-2">
         <h6>Total charge</h6>
-        <div>0</div>
-    </div>
-    <div class = "kg p-2">
-        <h6>Total charge</h6>
-        <div>0</div>
+        <div id = "showTotal_charge">0</div>
     </div>
     <div class = "kg p-2">
         <h6>Intend time</h6>
-        <div></div>
+        <div id = "showTime"></div>
     </div>
     <div class = "kg p-1">
-        <button type="button" class="btn btn-primary m-2">Send now</button>
-        <button type="button" class="btn btn-primary m-2">Save draft</button>
+        <button type="submit" class="btn btn-primary m-2 add-produtcs">Send now</button>
         <button type="button" class="btn btn-primary m-2">Refesh</button>
     </div>
 </div>
@@ -171,7 +164,7 @@
                     "address": $("#AddSenderAddress").val(),
                 }, false, (loi, data) => {
                     if (loi) {
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        alert("Website Maintenance !! Hope you relax the next day: 3");
                         return location.reload();
                     }
 
@@ -183,12 +176,132 @@
                     alert(data.Message)
                     return location.reload();
                 })
-
-                
-
-
             };
+
+            //tính
+            document.querySelector("#InputWeightProduct").onchange  = async function InputWeightProduct() {
+                var number = document.querySelector("#InputNumberProduct").value;
+                let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
+                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                if(number != ""){
+                    document.querySelector("#showTotal_charge").innerHTML = (this.value/weightType)*moneyType*number + moneyserice  + "$";
+                }
+                 document.querySelector("#showTime").innerHTML = timeservice  + "days";
+            }
+            document.querySelector("#InputNumberProduct").onchange  = async function InputWeightProduct() {
+                var number = document.querySelector("#InputWeightProduct").value;
+                let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
+                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                if(number != ""){
+                    document.querySelector("#showTotal_charge").innerHTML = (number/weightType)*moneyType*this.value + moneyserice  + "$";
+                }
+                 document.querySelector("#showTime").innerHTML = timeservice  + "days";
+            }
+            document.querySelector("#SelectService").onchange  = async function InputWeightProduct() {
+                document.getElementById("SelectService").dataset.select = document.getElementById("SelectService").value;
+                let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
+                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                var number = document.querySelector("#InputWeightProduct").value;
+                var weight = document.querySelector("#InputNumberProduct").value;
+                if(number != "" && weight != ""){
+                    document.querySelector("#showTotal_charge").innerHTML = (weight/weightType)*moneyType*number + moneyserice  + "$";
+                }
+                document.querySelector("#showTime").innerHTML = timeservice  + "days";
+            }
+            document.querySelector("#SelectType").onchange  = async function InputWeightProduct() {
+                document.getElementById("SelectType").dataset.select = document.getElementById("SelectType").value;
+                let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
+                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                var number = document.querySelector("#InputWeightProduct").value;
+                var weight = document.querySelector("#InputNumberProduct").value;
+                if(number != "" && weight != ""){
+                    document.querySelector("#showTotal_charge").innerHTML = (weight/weightType)*moneyType*number + moneyserice  + "$";
+                }
+                document.querySelector("#showTime").innerHTML = timeservice + "days";
+            }
+            //post product 
+            document.querySelector(".add-produtcs").onclick = async () => {
+                var number = document.getElementById("InputWeightProduct").value;
+                var weight = document.getElementById("InputNumberProduct").value;
+                var codeproduct = document.getElementById("InputCode_orders").value;
+                var nameproduct = document.getElementById("Inputnameproduct").value;
+                var feE_PAYER = document.querySelector('input[name="SenderRadioOptions"]:checked').value;
+                var requesT_PICK_UP = document.querySelector('input[name="REQUEST_PICK_UPRadioDefault"]:checked').value;
+
+
+                var nameRecipient = document.getElementById("AddRecipientText").value;
+                var phoneRecipient = document.getElementById("AddRecipientphone").value;
+                var addressRecipient = document.getElementById("AddRecipientAddress").value;
+
+                var idSender = document.getElementById('SelectinfoSender').dataset.select;
+                var idService = document.getElementById("SelectService").dataset.select;
+                var idTranpostfee = document.getElementById("SelectType").dataset.select;
+
+                if(idSender == ""){
+                    return alert("Please add the sender");
+                }
+                if( number == "" || 
+                    weight == "" ||
+                    nameproduct == "" ||
+                    nameRecipient == "" ||
+                    phoneRecipient == "" ||
+                    addressRecipient == "" || 
+                    idService == "" || 
+                    idTranpostfee == ""
+                ){
+                    return alert("Please enter the full information");
+                }
+                let { Name: servce ,Money: moneyserice,Time: timeservice  } = await fetchurl.get(UrlApi + "/Servces/" + idService);
+                let { Type: transportFee ,Money: moneyType, Weith : weightType} = await fetchurl.get(UrlApi + "/TransportFees/" + idTranpostfee);
+                let dataSender = await fetchurl.get(UrlApi + "/Recipients/" + idSender + "?singer=true");
+                
+                let d = new Date();
+
+                let year = d.getFullYear();
+                let month = d.getMonth() + 1;
+                let day = d.getDate();
+                let dayofweek = d.getDay();
+
+                const dayname = ['CN','T2','T3','T4','T5','T6','T7'];
+
+
+                var dataSend = {
+                    "userId": getCookie("UserID"),
+                    "name": nameproduct,
+                    "number": parseFloat(number),
+                    "transportFee": transportFee,
+                    "weith": parseFloat(weight),
+                    "code_orders": codeproduct,
+                    "servce": servce + `( ${timeservice} day)`,
+                    "feE_PAYER": feE_PAYER,
+                    "requesT_PICK_UP": requesT_PICK_UP,
+                    "recipientName": nameRecipient,
+                    "recipientPhone": phoneRecipient,
+                    "recipientAddress": addressRecipient,
+                    "senderName": dataSender.Name,
+                    "sendertPhone": dataSender.Address,
+                    "senderAddress": dataSender.Phone,
+                    "startTime": dayname[dayofweek] + ' ngày '+ day + '/' + month+ '/'+ year,
+                    "total_charge": (weight/weightType)*moneyType*number + moneyserice,
+                    "status": "Receiving goods"
+                }
+                return fetchurl.post(UrlApi + "/Products", dataSend, false, (loi, data) => {
+                    if (loi) {
+                        alert("Website Maintenance !! Hope you relax the next day: 3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert("Error database");
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("Done")
+                    return location.reload();
+                }) 
+            }
             //end hander event
+
             
         }
         function onchangeselectinfosender(name){
@@ -200,29 +313,32 @@
             
             var body = "";
             for(var i = 0; i < datainfosender.length ; i++){
-                let text = datainfosender[i].Name + `-` + (datainfosender[i].Address.length > 25 ?  datainfosender[i].Address.substring(0,24)+"..." : datainfosender[i].Address) + '- 0' + datainfosender[i].Phone 
+                let text = datainfosender[i].Name + ` - ` + (datainfosender[i].Address.length > 25 ?  datainfosender[i].Address.substring(0,24)+"..." : datainfosender[i].Address) + ' - 0' + datainfosender[i].Phone 
                 if(i == 0) body += `<option selected value = '${datainfosender[i].Id}' >${text}</option>`
-                    else body += `<option value = '${datainfosender[i].Id}'>${text}</option>`
+                    else body += `<option value = '${datainfosender[i].Id}'>${text}</option>`;
+                document.getElementById('SelectinfoSender').dataset.select = datainfosender[0].Id;
             }
             document.getElementById('SelectinfoSender').innerHTML = body;
-            document.getElementById('SelectinfoSender').dataset.select = datainfosender[0].Id;
+            
             var dataservice = await fetchurl.get(UrlApi + "/Servces");
             var body = "";
             for(var i = 0; i < dataservice.length ; i++){
-                if(i == 0) body += `<option selected value = '${dataservice[i].Id}' >${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
-                    else body += `<option value = '${dataservice[i].Id}'>${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
+                if(i == 0) body += `<option selected value = '${dataservice[i].Id}' >${dataservice[i].Name + " - "  + dataservice[i].Money}</option>`
+                    else body += `<option value = '${dataservice[i].Id}'>${dataservice[i].Name + " - " + dataservice[i].Money}</option>`
+                document.getElementById('SelectService').dataset.select = dataservice[0].Id;
             }
             document.getElementById('SelectService').innerHTML = body;
-            document.getElementById('SelectService').dataset.select = datainfosender[0].Id;
+            
 
             var dataservice = await fetchurl.get(UrlApi + "/TransportFees");
             var body = "";
             for(var i = 0; i < dataservice.length ; i++){
-                if(i == 0) body += `<option selected value = '${dataservice[i].Id}' >${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
-                    else body += `<option value = '${dataservice[i].Id}'>${dataservice[i].Name + "-" + dataservice[i].Money}</option>`
+                if(i == 0) body += `<option selected value = '${dataservice[i].Id}' >${dataservice[i].Type + " - " + dataservice[i].Money + "$/"+ dataservice[i].Weith + "Gram"}</option>`
+                    else body += `<option value = '${dataservice[i].Id}'>${dataservice[i].Type + " - " + dataservice[i].Money + "$/"+ dataservice[i].Weith + "Gram"}</option>`
+                 document.getElementById('SelectType').dataset.select = dataservice[0].Id;
             }
             document.getElementById('SelectType').innerHTML = body;
-            document.getElementById('SelectType').dataset.select = datainfosender[0].Id;
+           
             
             return load.off();
         }
