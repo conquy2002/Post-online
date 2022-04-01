@@ -96,7 +96,7 @@ namespace Api.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(new { Startus = "Done" });
         }
 
         // POST: api/Products
@@ -107,7 +107,7 @@ namespace Api.Controllers
             _context.Products.Add(products);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProducts", new { id = products.Id }, products);
+            return Ok(new { Startus = "Done" });
         }
 
         // DELETE: api/Products/5
@@ -123,7 +123,7 @@ namespace Api.Controllers
             _context.Products.Remove(products);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { Startus = "Done" });
         }
 
         private bool ProductsExists(int id)

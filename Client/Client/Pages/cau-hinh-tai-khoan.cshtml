@@ -90,14 +90,32 @@
                             <th scope="col">#</th>
                             <th scope="col">Type</th>
                             <th scope="col">Money</th>
-
                             <th scope="col">Weith</th>
-                            
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody id = "Transport_Fee_SETTING">
+                    </tbody>
+                </table>         
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-5 d-none" >
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">SERVICE SETTING</h6>
+                <button type="button" class="btn btn-outline-danger m-2" onclick = "show('#ModalAddaddresPostal')">Add Address Postal</button>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Link</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "Address_Postal_SETTING">
                     </tbody>
                 </table>         
             </div>
@@ -154,62 +172,92 @@
 <div class="modal fade" id="ModalAddSerce" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
-            <h4 class="modal-title">Add Servce</h4>
-        </div>
-        <div class="modal-body">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="AddServceText" placeholder="jhondoe" required>
-                <label for="AddServceText">Name Servce</label>
+            <div class="modal-header">
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
+                <h4 class="modal-title">Add Servce</h4>
             </div>
-            <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddServcephone"  required>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="AddServceText" placeholder="jhondoe" required>
+                    <label for="AddServceText">Name Servce</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="number" class="form-control" id="AddServcephone"  required>
          
-                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
                 
-                <label for="AddServcephone">Money</label>
+                    <label for="AddServcephone">Money</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">day</span>
+                    <input type="number" class="form-control" id="AddServceTime"  required>
+                    <label for="AddServceTime">Time</label>
+                </div>
             </div>
-            <div class="form-floating mb-4">
-                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">day</span>
-                <input type="number" class="form-control" id="AddServceTime"  required>
-                <label for="AddServceTime">Time</label>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary  btn-AddServce ">Add</button>
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSerce')">Close</button>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary  btn-AddServce ">Add</button>
-            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSerce')">Close</button>
-        </div>
         </div>
     </div>
 </div>
 <div class="modal fade" id="ModalAddSender" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
-            <h4 class="modal-title">Add Sender</h4>
-        </div>
-        <div class="modal-body">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="AddSenderText" placeholder="jhondoe" required>
-                <label for="AddSenderText">Username</label>
-            </div>
-            <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
-                <label for="AddSenderphone">Phone</label>
-            </div>
+         <div class="modal-content">
+              <div class="modal-header">
+                    <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
+                    <h4 class="modal-title">Add Sender</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="AddSenderText" placeholder="jhondoe" required>
+                        <label for="AddSenderText">Username</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="number" class="form-control" id="AddSenderphone" placeholder="phone" required>
+                        <label for="AddSenderphone">Phone</label>
+                    </div>
   
-            <div class="form-floating mb-4">
-                <input type="number" class="form-control" id="AddSenderAddress"  required>
-                <label for="AddSenderAddress">Address</label>
-            </div>
+                    <div class="form-floating mb-4">
+                        <input type="number" class="form-control" id="AddSenderAddress"  required>
+                        <label for="AddSenderAddress">Address</label>
+                    </div>
 
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-AddSender">Add</button>
-            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">Close</button>
-        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-AddSender">Add</button>
+                    <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">Close</button>
+                </div>
+         </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalAddaddresPostal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddaddresPostal')">&times;</button>
+                <h4 class="modal-title">Add Postal address </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="AddaddresPostalName"  required>
+                    <label for="AddaddresPostalName">Name</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="AddaddresPostalAddress"  required>
+                    <label for="AddaddresPostalAddress">Addres</label>
+                </div>
+  
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="AddaddresPostalLink"  required>
+                    <label for="AddaddresPostalLink">Link</label>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-AddaddresPostal">Add</button>
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddaddresPostal')">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -270,8 +318,9 @@
             }
             document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = body;
             if(dataalluser.IsAdmin) {
-                $(".chose_setting").append(` <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "3">SERVICE SETTING</button>
-                                            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "4">Transport Fee SETTING</button>`)
+                $(".chose_setting").append(` <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "3">Service settings</button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "4">Transport Fee settings</button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "5">Postal address</button>`)
                 
                 var dataallservce = await fetchurl.get(UrlApi + "/Servces")
                 var body = "";
@@ -299,6 +348,19 @@
                             </tr>`
                 }
                 document.getElementById('Transport_Fee_SETTING').innerHTML = body;
+                var addresspostal = await fetchurl.get(UrlApi + "/postaddresses")
+                var body = "";
+                for(var i = 0; i < addresspostal.length ; i++){
+                    body += `<tr>
+                                <th scope="row">${(i+1)}</th>
+                                <td>${addresspostal[i].Name}</td>
+                                <td>${addresspostal[i].Address}</td>
+                                <td style = "word-break: break-word;">${addresspostal[i].Link}</td>
+                                <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${addresspostal[i].Id},'postaddresses')">Edit</button></td>
+                                <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${addresspostal[i].Id},'postaddresses')">Delete</button></td>
+                            </tr>`
+                }
+                document.getElementById('Address_Postal_SETTING').innerHTML = body;
 
             }
             load.off();
@@ -394,6 +456,29 @@
                     this.classList.add('btn-primary')
                 }
             }
+            document.querySelector('.btn-AddaddresPostal').onclick = async () => {
+                return fetchurl.post(UrlApi + "/postaddresses", {
+                    "name": $("#AddaddresPostalName").val(),
+                    "address": $("#AddaddresPostalAddress").val(),
+                    "link": $("#AddaddresPostalLink").val()
+
+                }, false, (loi, data) => {
+                    if (loi) {
+                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        return location.reload();
+                    }
+
+                    if (data.Status == "Error" || data.errors) {
+                        alert(data.message ? data.message : data.errors);
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+
+
             document.querySelector('.btn-AddTransportFee').onclick = async () => {
                 return fetchurl.post(UrlApi + "/TransportFees", {
                     "weith": $("#AddTransportFeeWeith").val(),
@@ -483,6 +568,8 @@
                 document.querySelector('.summitedit').classList.add('btn-Update');
                 document.querySelector('.summitedit').classList.remove('btn-Update-servce');
                 document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
+                document.querySelector('.summitedit').classList.remove('btn-Update-postaddresses');
+
                 document.querySelector('.btn-Update').onclick = async () => {
                 return fetchurl.put(UrlApi + "/Recipients/" +  document.querySelector("#ModalEdit").dataset.id , {
                     "id": document.querySelector("#ModalEdit").dataset.id,
@@ -528,6 +615,8 @@
                 document.querySelector('.summitedit').classList.remove('btn-Update');
                 document.querySelector('.summitedit').classList.add('btn-Update-servce');
                 document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
+                document.querySelector('.summitedit').classList.remove('btn-Update-postaddresses');
+
                 document.querySelector('.btn-Update-servce').onclick = async () => {
                     return fetchurl.put(UrlApi + "/Servces/" +  document.querySelector("#ModalEdit").dataset.id , {
                         "id": document.querySelector("#ModalEdit").dataset.id,
@@ -571,6 +660,8 @@
                 document.querySelector('.summitedit').classList.remove('btn-Update');
                 document.querySelector('.summitedit').classList.remove('btn-Update-servce');
                 document.querySelector('.summitedit').classList.add('btn-Update-tranpostfee');
+                document.querySelector('.summitedit').classList.remove('btn-Update-postaddresses');
+
                 document.querySelector('.btn-Update-tranpostfee').onclick = async () => {
                 return fetchurl.put(UrlApi + "/TransportFees/" +  document.querySelector("#ModalEdit").dataset.id , {
                         "id": document.querySelector("#ModalEdit").dataset.id,
@@ -578,6 +669,48 @@
                         "distance": " ",
                         "type": $("#EditTransportFeesText").val(),
                         "money": $("#EditTransportFeesMoney").val()
+                    }, (loi, data) => {
+                        if (loi) {
+                            alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                            return location.reload();
+                        }
+
+                        if (data.Status == "Error" || data.errors) {
+                            alert(data.message ? data.message : data.errors);
+                            console.log(data)
+                            return location.reload()
+                        }
+                        alert("done")
+                        return location.reload();
+                    })
+                };
+            }else if(name == "postaddresses"){
+                var data = await fetchurl.get(UrlApi + "/postaddresses/" + id);
+                document.querySelector('.ModalEditbody').innerHTML = `
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditpostaddressesText" required value = '${data.Name}'>
+                        <label for="EditpostaddressesText">Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditpostaddressesAddress"  required value = '${data.Address}'>
+                        <label for="EditpostaddressesAddress">Address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="EditpostaddressesLink"  required value = '${data.Link}'>
+                        <label for="EditpostaddressesLink">Link</label>
+                    </div>
+                `
+                document.querySelector('.summitedit').classList.remove('btn-Update');
+                document.querySelector('.summitedit').classList.remove('btn-Update-servce');
+                document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
+                document.querySelector('.summitedit').classList.add('btn-Update-postaddresses');
+
+                document.querySelector('.btn-Update-postaddresses').onclick = async () => {
+                return fetchurl.put(UrlApi + "/postaddresses/" +  document.querySelector("#ModalEdit").dataset.id , {
+                        "id": document.querySelector("#ModalEdit").dataset.id,
+                        "name": $("#EditpostaddressesText").val(),
+                        "address": $("#EditpostaddressesAddress").val(),
+                        "link": $("#EditpostaddressesLink").val()
                     }, (loi, data) => {
                         if (loi) {
                             alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");

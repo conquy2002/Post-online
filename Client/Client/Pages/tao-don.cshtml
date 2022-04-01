@@ -173,7 +173,7 @@
                         console.log(data)
                         return location.reload()
                     }
-                    alert(data.Message)
+                    alert("Done")
                     return location.reload();
                 })
             };
@@ -264,7 +264,7 @@
 
                 const dayname = ['CN','T2','T3','T4','T5','T6','T7'];
 
-
+                
                 var dataSend = {
                     "userId": getCookie("UserID"),
                     "name": nameproduct,
@@ -282,21 +282,21 @@
                     "sendertPhone": dataSender.Address,
                     "senderAddress": dataSender.Phone,
                     "startTime": dayname[dayofweek] + ' ngày '+ day + '/' + month+ '/'+ year,
-                    "total_charge": (weight/weightType)*moneyType*number + moneyserice,
+                    "total_charge": parseInt((weight/weightType)*moneyType*number + moneyserice),
                     "status": "Receiving goods"
                 }
-                return fetchurl.post(UrlApi + "/Products", dataSend, false, (loi, data) => {
+                
+                return fetchurl.post(UrlApi + "/products", dataSend, false, (loi, data) => {
                     if (loi) {
-                        alert("Website Maintenance !! Hope you relax the next day: 3");
+                        alert("website maintenance !! hope you relax the next day: 3");
                         return location.reload();
                     }
 
-                    if (data.Status == "Error" || data.errors) {
-                        alert("Error database");
-                        console.log(data)
-                        return location.reload()
+                    if (data.errors) {
+                        alert("Error database")
+                    return location.reload();
                     }
-                    alert("Done")
+                    alert("done")
                     return location.reload();
                 }) 
             }

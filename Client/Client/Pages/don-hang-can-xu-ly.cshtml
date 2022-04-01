@@ -5,25 +5,18 @@
  <!-- Button Start -->
             <div class="container-fluid pt-4 px-4">
                 <h6>Orders to be processed</h6>
-                <button type="button" class="btn btn-primary m-2">1 piece delivery (0)</button>
-                <button type="button" class="btn btn-primary m-2">Pending (0)</button>
-                <button type="button" class="btn btn-primary m-2">Edit COD</button>
-                <button type="button" class="btn btn-primary m-2">Edit information</button>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            
+                            <th scope="col">Name Product</th>
+                            <th scope="col">Name Recipient</th>
+                            <th scope="col">Name Address</th>
+                            <th scope="col">Delivery time</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>jhon@email.com</td>
-                        </tr>
-                        
+                    <tbody id = "show_Products">
                     </tbody>
                 </table>
             </div>
@@ -31,12 +24,20 @@
     <script>
         async function mangluoibuucuc() {
             load.on();
-            var dataAdress = await fetchurl.get(UrlApi + "/postaddress");
-            var body
-            dataAdress.forEach(a => body += `<div class = "Coordinates" data-value = "${a.Coordinates}"></div>`);
-            document.querySelectorAll('.Coordinates').forEach(a => a.onclick = ()=> {
-                document.getElementById("showiframe").src = a.dataset.value
-            })
+            var { product: dataProduct } = await fetchurl.get(UrlApi + "/Products/" + getCookie("UserID") + "?user=true");
+            var body = "";
+            for(var i = 0; i < dataProduct.length ; i++){
+                var data = dataProduct[i];
+                body += `<tr>
+                            <th scope="row">${data.Id}</th>
+                            <td>${data.Name}</td>
+                            <td>${data.RecipientName}</td>
+                            <td>${data.RecipientAddress}</td>
+                            <td>${data.StartTime}</td>
+                            <td>${data.status}</td>
+                        </tr>`
+            }
+            document.querySelector('#show_Products').innerHTML = body;
             return load.off();
         }
         app.handercommands.push(mangluoibuucuc);

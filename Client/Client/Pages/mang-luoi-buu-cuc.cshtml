@@ -2,30 +2,59 @@
 @model Client.Pages.mang_luoi_buu_cucModel
 @{
 }
-<div class="container-fluid pt-4 px-4 h-50">
+<div class="container-fluid pt-4 px-4">
     <h6>Post office lookup</h6>
-    <input class="form-control bg-transparent " type="text" placeholder="Find " id = "findaddress">
-    <div id = "showaddress">
-        <div data-value = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14868.164618554169!2d105.72338175!3d21.3093901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134e3830d25aa35%3A0x9fa9430c7e2f48dd!2sL&#39;amant%20villa%20ki%E1%BB%81u%20nga!5e0!3m2!1svi!2s!4v1648714929506!5m2!1svi!2s" width="600" height="450"></div>
+    <input class="form-control bg-transparent " type="text" placeholder="Find " onkeyup="findaddress('searchaddrespost','.Coordinates','h6')" id = "searchaddrespost">
+    <div class = "row g-4 m-4">
+        <div class="bg-light rounded p-4 col-sm-12 col-xl-6" style = "height: 380px;overflow: scroll;" id = "showaddress"></div>
+        <div class = "p-4 col-sm-12 col-xl-6">
+            <iframe class = "w-100"
+            src=""
+            style="border:0;height: 300px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id = "showiframe"></iframe>
+        </div>
     </div>
-    <iframe class="position-relative rounded w-100 h-100"
-        src=""
-        frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-        tabindex="0" id = "showiframe"></iframe>
 </div>
 
 @section Scripts {
     <script>
         async function mangluoibuucuc() {
             load.on();
-            var dataAdress = await fetchurl.get(UrlApi + "/postaddress");
-            var body
-            dataAdress.forEach(a => body += `<div class = "Coordinates" data-value = "${a.Coordinates}"></div>`);
+            var dataAdress = await fetchurl.get(UrlApi + "/postaddresses");
+            var body = "";
+            dataAdress.forEach(a => body += `<div class="align-items-center border-bottom py-3 Coordinates" style = "cursor: pointer" data-value = "${a.Link}">
+                                <div class="w-100 ms-3" >
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">${a.Name}</h6>
+                                    </div>
+                                    <span>${a.Address}</span>
+                                </div>
+                            </div>`);
+            document.getElementById("showaddress").innerHTML = body;
             document.querySelectorAll('.Coordinates').forEach(a => a.onclick = ()=> {
                 document.getElementById("showiframe").src = a.dataset.value
             })
             return load.off();
         }
         app.handercommands.push(mangluoibuucuc);
+        function findaddress(a,b,c) {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById(a);
+         
+          filter = input.value.toUpperCase();
+          
+          tr = document.querySelectorAll(b);
+          for (i = 0; i < tr.length; i++) {
+               console.log(tr[i])
+            td = tr[i].getElementsByTagName(c)[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
     </script>
 }
