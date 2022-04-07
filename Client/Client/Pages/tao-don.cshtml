@@ -9,7 +9,7 @@
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">SENDER</h6>
                 <button type="button" class="btn btn-outline-danger m-2" onclick = "show('#ModalAddSender')">Add Sender</button>
-                <select class="form-select" id="SelectinfoSender" onchange = "onchangeselectinfosender('SelectinfoSender')">
+                <select class="form-select" id="SelectinfoSender" >
                 </select>
                 <br/>
                 <h6 class="mb-4">Recipient</h6>
@@ -26,6 +26,19 @@
                 <div class="mb-3">
                     <label for="AddRecipientAddress">Address (*)</label>
                     <input type="text" class="form-control" id="AddRecipientAddress"  required>
+                </div>
+                <div class="mb-3">
+                    <label for="InputAddress1" class="form-label">Address</label>
+                    <select class="form-select form-select-sm mb-3 city_4" id="city1" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn tỉnh thành</option>           
+                    </select>
+                    <select class="form-select form-select-sm mb-3 district_4" id="district1" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn quận huyện</option>
+                    </select>
+
+                    <select class="form-select form-select-sm ward_4" id="ward1" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn phường xã</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -122,7 +135,21 @@
                 <input type="text" class="form-control" id="AddSenderAddress" placeholder="Address" required>
                 <label for="AddSenderAddress">Address</label>
             </div>
+            <div class="mb-3">
+                <label for="InputAddress1" class="form-label">Address</label>
+                <select class="form-select form-select-sm mb-3 city_5" id="city" aria-label=".form-select-sm">
+                    <option value="" selected>Chọn tỉnh thành</option>           
+                </select>
+                <select class="form-select form-select-sm mb-3 district_5" id="district" aria-label=".form-select-sm">
+                    <option value="" selected>Chọn quận huyện</option>
+                </select>
+
+                <select class="form-select form-select-sm ward_5" id="ward" aria-label=".form-select-sm">
+                    <option value="" selected>Chọn phường xã</option>
+                </select>
+            </div>
         </div>
+        
         <div class="modal-footer">
             <button type="button" class="btn btn-primary btn-AddSender">Add</button>
             <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">Close</button>
@@ -147,7 +174,6 @@
 </div>
 @section Scripts {
     <script>
-        renderCity(cactinh)
         var taodon =  () => {
             //render
             if(!app.login) return;
@@ -162,6 +188,9 @@
                     "userID": app.dataUser.id,
                     "phone": $("#AddSenderphone").val(),
                     "address": $("#AddSenderAddress").val(),
+                    "city": $(".city_5").val(),
+                    "district": $(".district_5").val(),
+                    "ward": $(".ward_5").val(),
                 }, false, (loi, data) => {
                     if (loi) {
                         alert("Website Maintenance !! Hope you relax the next day: 3");
@@ -179,45 +208,107 @@
             };
 
             //tính
+            document.querySelector("#SelectinfoSender").onchange  = async function InputWeightProduct() {
+                document.getElementById("SelectinfoSender").dataset.select = document.getElementById("SelectinfoSender").value;
+                var number = document.querySelector("#InputWeightProduct").value;
+                var weight = document.querySelector("#InputNumberProduct").value;
+
+                let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
+                let { Money: moneyType, Weith : weightType , Distance : kcach } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                if(document.getElementById("city1").value != "" && number != "" && weight != "" ){
+                    var distance = tinhkc(document.getElementById('SelectinfoSender').dataset.select.split(";")[1].trim(),document.getElementById("city1").value);
+                    var total = (distance/kcach)*(weight/weightType)*moneyType*number + moneyserice;
+                    document.querySelector("#showTotal_charge").innerHTML = Math.ceil(total)    + "$";
+                    document.querySelector("#showTime").innerHTML = `${Math.ceil(distance/timeservice) == 0 ? 1 : Math.ceil(distance/timeservice)}` + "days";
+                }
+                
+
+            }
             document.querySelector("#InputWeightProduct").onchange  = async function InputWeightProduct() {
                 var number = document.querySelector("#InputNumberProduct").value;
+                var vitri1 = document.getElementById('SelectinfoSender').dataset.select.split(";")[1].trim() || "";
+                var vitri2 = document.getElementById("city1").value;
                 let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
-                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
-                if(number != ""){
-                    document.querySelector("#showTotal_charge").innerHTML = (this.value/weightType)*moneyType*number + moneyserice  + "$";
+                let { Money: moneyType, Weith : weightType , Distance : kcach} = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                if(number != "" && vitri1 != "" && vitri2 != ""){
+                    var distance = tinhkc(vitri1,vitri2);
+                    var total = (distance/kcach)*(this.value/weightType)*moneyType*number + moneyserice;
+                    document.querySelector("#showTotal_charge").innerHTML = Math.ceil(total)     + "$";
+                    document.querySelector("#showTime").innerHTML = `${Math.ceil(distance/timeservice) == 0 ? 1 : Math.ceil(distance/timeservice)}` + "days";
                 }
-                 document.querySelector("#showTime").innerHTML = timeservice  + "days";
             }
             document.querySelector("#InputNumberProduct").onchange  = async function InputWeightProduct() {
                 var number = document.querySelector("#InputWeightProduct").value;
+                var vitri1 = document.getElementById('SelectinfoSender').dataset.select.split(";")[1].trim() || "";
+                var vitri2 = document.getElementById("city1").value;
                 let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
-                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
-                if(number != ""){
-                    document.querySelector("#showTotal_charge").innerHTML = (number/weightType)*moneyType*this.value + moneyserice  + "$";
+                let { Money: moneyType, Weith : weightType , Distance : kcach} = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                if(number != "" && vitri1 != "" && vitri2 != ""){
+                    var distance = tinhkc(vitri1,vitri2);
+                    var total = Math.ceil((distance/kcach)*(this.value/weightType)*moneyType*this.value + moneyserice);
+                    document.querySelector("#showTotal_charge").innerHTML = total     + "$";
+                    document.querySelector("#showTime").innerHTML = `${Math.ceil(distance/timeservice) == 0 ? 1 : Math.ceil(distance/timeservice)}` + "days";
                 }
-                 document.querySelector("#showTime").innerHTML = timeservice  + "days";
             }
             document.querySelector("#SelectService").onchange  = async function InputWeightProduct() {
                 document.getElementById("SelectService").dataset.select = document.getElementById("SelectService").value;
+                var vitri1 = document.getElementById('SelectinfoSender').dataset.select.split(";")[1].trim() || "";
+                var vitri2 = document.getElementById("city1").value;
                 let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
-                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                let { Money: moneyType, Weith : weightType , Distance : kcach} = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
                 var number = document.querySelector("#InputWeightProduct").value;
                 var weight = document.querySelector("#InputNumberProduct").value;
-                if(number != "" && weight != ""){
-                    document.querySelector("#showTotal_charge").innerHTML = (weight/weightType)*moneyType*number + moneyserice  + "$";
+                if(number != "" && weight != "" && vitri1 != "" && vitri2 != ""){
+                    var distance = tinhkc(vitri1,vitri2);
+                    var total = Math.ceil((distance/kcach)*(weight/weightType)*moneyType*number + moneyserice);
+                    document.querySelector("#showTotal_charge").innerHTML = total     + "$";
+                    document.querySelector("#showTime").innerHTML = `${Math.ceil(distance/timeservice) == 0 ? 1 : Math.ceil(distance/timeservice)}`+ "days";
                 }
-                document.querySelector("#showTime").innerHTML = timeservice  + "days";
             }
             document.querySelector("#SelectType").onchange  = async function InputWeightProduct() {
                 document.getElementById("SelectType").dataset.select = document.getElementById("SelectType").value;
                 let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
-                let { Money: moneyType, Weith : weightType } = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                let { Money: moneyType, Weith : weightType , Distance : kcach} = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
                 var number = document.querySelector("#InputWeightProduct").value;
                 var weight = document.querySelector("#InputNumberProduct").value;
                 if(number != "" && weight != ""){
-                    document.querySelector("#showTotal_charge").innerHTML = (weight/weightType)*moneyType*number + moneyserice  + "$";
+                    var distance = tinhkc(vitri1,vitri2);
+                    var total = (distance/kcach)*(weight/weightType)*moneyType*number + moneyserice;
+                    document.querySelector("#showTotal_charge").innerHTML = Math.ceil(total )    + "$";
+                    document.querySelector("#showTime").innerHTML = `${Math.ceil(distance/timeservice) == 0 ? 1 : Math.ceil(distance/timeservice)}` + "days";
                 }
-                document.querySelector("#showTime").innerHTML = timeservice + "days";
+            }
+            document.querySelector("#city1").onchange  = async function InputWeightProduct() {
+                document.getElementById("city1").dataset.select = document.getElementById("city1").value;
+                let { Money: moneyserice,Time: timeservice } = await fetchurl.get(UrlApi + "/Servces/" + document.querySelector("#SelectService").dataset.select);
+                let { Money: moneyType, Weith : weightType , Distance : kcach} = await fetchurl.get(UrlApi + "/TransportFees/" + document.querySelector("#SelectType").dataset.select);
+                var vitri1 = document.getElementById('SelectinfoSender').dataset.select.split(";")[1].trim() || "";
+                var vitri2 = document.getElementById("city1").value;
+                var number = document.querySelector("#InputWeightProduct").value;
+                var weight = document.querySelector("#InputNumberProduct").value;
+
+                    var data = cactinh;
+                var district = document.querySelector(`.district_4`);  
+                var ward =document.querySelector(`.ward_4`); 
+
+                 district.length = 1
+                    ward.length = 1
+                    if(this.value != ""){
+                      const result = data.filter(n => n.Id === this.value);
+                      var id = this.value;
+                      for (const k of result[0].Districts) {
+                            district.options[district.options.length] = new Option(k.Name, k.Id);
+                            district.dataset.id = id;
+                      }
+                 }
+
+
+                if(number != "" && weight != ""){
+                    var distance = tinhkc(vitri1,vitri2);
+                    var total = (distance/kcach)*(weight/weightType)*moneyType*number + moneyserice;
+                    document.querySelector("#showTotal_charge").innerHTML = Math.ceil(total )    + "$";
+                    document.querySelector("#showTime").innerHTML = `${Math.ceil(distance/timeservice) == 0 ? 1 : Math.ceil(distance/timeservice)}` + "days";
+                }
             }
             //post product 
             document.querySelector(".add-produtcs").onclick = async () => {
@@ -233,13 +324,19 @@
                 var phoneRecipient = document.getElementById("AddRecipientphone").value;
                 var addressRecipient = document.getElementById("AddRecipientAddress").value;
 
-                var idSender = document.getElementById('SelectinfoSender').dataset.select;
+                var cityselect = document.getElementById("city1").value;
+                var districtselect = document.getElementById("district1").value;
+                var wardselect = document.getElementById("ward1").value;
+
+
+                var idSender = document.getElementById('SelectinfoSender').dataset.select.split(";")[0].trim();
                 var idService = document.getElementById("SelectService").dataset.select;
                 var idTranpostfee = document.getElementById("SelectType").dataset.select;
 
                 if(idSender == ""){
                     return alert("Please add the sender");
                 }
+                var vitri =  document.getElementById('SelectinfoSender').dataset.select.split(";")[1].trim();
                 if( number == "" || 
                     weight == "" ||
                     nameproduct == "" ||
@@ -247,12 +344,18 @@
                     phoneRecipient == "" ||
                     addressRecipient == "" || 
                     idService == "" || 
+                    cityselect == "" ||
+                    districtselect == "" ||
+                    wardselect == "" ||
+
                     idTranpostfee == ""
                 ){
                     return alert("Please enter the full information");
                 }
+
+                var kc = tinhkc(vitri,cityselect)
                 let { Name: servce ,Money: moneyserice,Time: timeservice  } = await fetchurl.get(UrlApi + "/Servces/" + idService);
-                let { Type: transportFee ,Money: moneyType, Weith : weightType} = await fetchurl.get(UrlApi + "/TransportFees/" + idTranpostfee);
+                let { Type: transportFee ,Money: moneyType, Weith : weightType , Distance : kcach} = await fetchurl.get(UrlApi + "/TransportFees/" + idTranpostfee);
                 let dataSender = await fetchurl.get(UrlApi + "/Recipients/" + idSender + "?singer=true");
                 
                 let d = new Date();
@@ -263,8 +366,10 @@
                 let dayofweek = d.getDay();
 
                 const dayname = ['CN','T2','T3','T4','T5','T6','T7'];
+                                const cityName = cactinh.filter(n => n.Id === cityselect)[0];
+                const districtName = cityName.Districts.filter(n => n.Id === districtselect)[0];
+                const wardName = districtName.Wards.filter(n => n.Id === wardselect)[0];
 
-                
                 var dataSend = {
                     "userId": getCookie("UserID"),
                     "name": nameproduct,
@@ -272,17 +377,18 @@
                     "transportFee": transportFee,
                     "weith": parseFloat(weight),
                     "code_orders": codeproduct,
-                    "servce": servce + `( ${timeservice} day)`,
+                    "servce": servce + `( ${timeservice} km/day)`,
                     "feE_PAYER": feE_PAYER,
                     "requesT_PICK_UP": requesT_PICK_UP,
                     "recipientName": nameRecipient,
                     "recipientPhone": phoneRecipient,
-                    "recipientAddress": addressRecipient,
+                    "recipientAddress": addressRecipient + "," + wardName.Name  + "," +districtName.Name + "," + cityName.Name,
                     "senderName": dataSender.Name,
                     "sendertPhone": dataSender.Address,
                     "senderAddress": dataSender.Phone,
+                    "Month": month,
                     "startTime": dayname[dayofweek] + ' ngày '+ day + '/' + month+ '/'+ year,
-                    "total_charge": parseInt((weight/weightType)*moneyType*number + moneyserice),
+                    "total_charge": parseInt((kc/kcach)*(weight/weightType)*moneyType*number + moneyserice),
                     "status": "Receiving goods"
                 }
                 
@@ -305,7 +411,25 @@
             
         }
         function onchangeselectinfosender(name){
+
             return document.getElementById(name).dataset.select = document.getElementById(name).value;
+        }
+        function tinhkc(id1,id2){
+            var data1 = cactinh.filter(n => n.Id == id1)[0];
+            var data2 = cactinh.filter(n => n.Id == id2)[0];
+           const R = 6371e3; // metres
+            const φ1 = data1.x * Math.PI/180; // φ, λ in radians
+            const φ2 = data2.x * Math.PI/180;
+            const Δφ = (data2.x - data1.x) * Math.PI/180;
+            const Δλ = (data2.y-data1.y) * Math.PI/180;
+
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                      Math.cos(φ1) * Math.cos(φ2) *
+                      Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            const d = R * c/1000;
+            return d;
         }
         async function renderInfoSender(){
             load.on();
@@ -313,10 +437,14 @@
             
             var body = "";
             for(var i = 0; i < datainfosender.length ; i++){
-                let text = datainfosender[i].Name + ` - ` + (datainfosender[i].Address.length > 25 ?  datainfosender[i].Address.substring(0,24)+"..." : datainfosender[i].Address) + ' - 0' + datainfosender[i].Phone 
-                if(i == 0) body += `<option selected value = '${datainfosender[i].Id}' >${text}</option>`
-                    else body += `<option value = '${datainfosender[i].Id}'>${text}</option>`;
-                document.getElementById('SelectinfoSender').dataset.select = datainfosender[0].Id;
+                const cityName = cactinh.filter(n => n.Id === datainfosender[i].City)[0];
+                const districtName = cityName.Districts.filter(n => n.Id === datainfosender[i].District)[0];
+                const wardName = districtName.Wards.filter(n => n.Id === datainfosender[i].Ward)[0];
+                var address = datainfosender[i].Address  + "," +  wardName.Name + "," +districtName.Name + "," + cityName.Name
+                let text = datainfosender[i].Name + ` - ` + (address.length > 25 ? address.substring(0,24)+"..." : address.Address) + ' - 0' + datainfosender[i].Phone 
+                if(i == 0) body += `<option selected value = '${datainfosender[i].Id} ; ${datainfosender[i].City}'>${text}</option>`
+                    else body += `<option value = '${datainfosender[i].Id} ; ${datainfosender[i].City}'>${text}</option>`;
+                document.getElementById('SelectinfoSender').dataset.select = `${datainfosender[0].Id} ; ${datainfosender[0].City}`;
             }
             document.getElementById('SelectinfoSender').innerHTML = body;
             
@@ -342,6 +470,9 @@
             
             return load.off();
         }
+        renderCity(4)
+        renderCity(5)
+
         app.handercommands.push(taodon);
     </script>
 }

@@ -143,7 +143,7 @@
                         <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <a href="index.html" class="">
-                                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Robin Post</h3>
                                 </a>
                                 <h3>Sign In</h3>
                             </div>
@@ -160,7 +160,6 @@
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
-                                <a href="">Forgot Password</a>
                             </div>
                             <button id = "login" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
                             <p class="text-center mb-0">Don't have an Account? <a class = "btn_sign_up">Sign Up</a></p>
@@ -177,7 +176,7 @@
                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <a href="index.html" class="">
-                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
+                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Robin Post</h3>
                             </a>
                             <h3>Sign Up</h3>
                         </div>
@@ -205,6 +204,19 @@
                             <input type="text" class="form-control" id="floatingReAddress" placeholder="Address">
                             <label for="floatingReAddress">Address</label>
                         </div>
+                        <div class="mb-4">
+                            <label for="floatingReAddress">Address</label>
+                            <select class="form-select form-select-sm mb-3 city_0" id="city" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>           
+                                </select>
+                                <select class="form-select form-select-sm mb-3 district_0" id="district" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn quận huyện</option>
+                              </select>
+
+                              <select class="form-select form-select-sm ward_0" id="ward" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn phường xã</option>
+                              </select>
+                        </div>
                         <button  class="btn btn-primary py-3 w-100 mb-4" id = "register">Sign Up</button>
                         <p class="text-center mb-0">Already have an Account? <a class = "btn_sign_in">Sign In</a></p>
                     </div>
@@ -224,12 +236,10 @@
             <div class="navbar-nav w-100">
                 <a href="Index" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Home</a>
                 <a href="tao-don" class="nav-item nav-link "><i class="fa fa-laptop me-2"></i>Create orders</a>
-                <a href="quan-ly-van-don" class="nav-item nav-link"><i class="far fa-address-book me-2"></i>Bill of lading management</a>
-                <a href="thong-ke-tien-hang" class="nav-item nav-link"><i class="fas fa-chart-bar me-2"></i>Cash statistícs</a>
-                <a href="thong-ke-san-luong" class="nav-item nav-link"><i class="far fa-clipboard me-2"></i>Revenue statistics</a>
+                <a href="thong-ke-tien-hang" class="nav-item nav-link"><i class="fas fa-chart-bar me-2"></i>Cash statistícs</a>    
                 <a href="don-hang-can-xu-ly" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Orders to be processed</a>
-                
-                <a href="mang-luoi-buu-cuc" class="nav-item nav-link"><i class="fas fa-search me-2"></i>Search</a>
+                <a href="mang-luoi-buu-cuc" class="nav-item nav-link"><i class="fas fa-search me-2"></i>Search Postal address</a>
+                <a href="quan-ly-van-don" class="nav-item nav-link"><i class="far fa-address-book me-2"></i>Notification</a>
                 <a href="cau-hinh-tai-khoan" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Account Setting</a>
             </div>
         </nav>
@@ -240,7 +250,7 @@
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0" style = 'box-shadow: 0px 6px rgb(135 135 135 / 24%);'>
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
@@ -253,65 +263,14 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
+                            <i class="fa fa-bell me-lg-2" style = "position: relative">
+                                <span style = "bottom: -5px;right: -5px;color: white;text-align: center; width: 20px;height: 20px;position: absolute;background: red; border-radius: 50%;" id = "notilength">0</span>
+                            </i>
                             <span class="d-none d-lg-inline-flex">Notificatin</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" id = "NotiShow">
+                            
+                            <a href="thong-ke-san-luong" class="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>
                    
@@ -333,7 +292,7 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Robin Post</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
@@ -441,6 +400,7 @@ app.handerevent = () => {
             var time = Date.now();
             var pwdmd5 = md5(md5(floatingRePassword));
             var token = md5($("#floatingReInput").val() + pwdmd5);
+            load.on();
             return fetchurl.post(UrlApi + UrlUser, {
                 "name": $("#floatingReText").val(),
                 "password": pwdmd5,
@@ -450,6 +410,10 @@ app.handerevent = () => {
                 "phone": $("#floatingRephone").val(),
                 "email": $("#floatingReInput").val(),
                 "address": $("#floatingReAddress").val(),
+                "city": $(".city_0").val(),
+                "district": $(".district_0").val(),
+                "ward": $(".ward_0").val(),
+                
             }, false, (loi, data) => {
                 if (loi) {
                     alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
@@ -465,6 +429,7 @@ app.handerevent = () => {
                 alert(data.Message)
                 setCookie("Token", token, time)
                 setCookie("UserID", token, time)
+                
                 return location.reload();
             })
         })
@@ -494,47 +459,74 @@ app.start = async () => {
     app.handercommands.forEach(a => a());
 }
 
+var loadnoti = ()=>{
+    if(!app.login) return;
+    app.notilength ? "" : app.notilength = 0;
+    
+    setTimeout(async() => {
+            var data = await fetchurl.get(UrlApi + "/Notiusers/0?userid=" + getCookie("UserID"));
+            var body = "";
+            var notinew = 0;
+            data.forEach(a => {
+                a.seened ? "" : notinew++;
+                
+                var time = Date.now() - parseInt(a.CreatedDate);
+                var textTime = Math.ceil((time)/1000);
+                var bodytime = "";
+                textTime < 60 ? bodytime = `${textTime} milliseconds ago` : 
+                    textTime < 3600 ? bodytime = `${Math.ceil(textTime/60) } minute ago` :
+                        textTime < 86400 ? bodytime = `${Math.ceil(textTime/3600)} hour ago` : bodytime = `${Math.ceil(textTime/86400)} days ago`;
+                body += `<a href="${a.Link ? a.link : "#"}" class="dropdown-item">
+                                <h6 class="fw-normal mb-0 d-flex align-items-center justify-content-between">${a.Name}<span>${bodytime}</span></h6>
+                                <small>${a.Body}</small>
+                            </a>
+                            <hr class="dropdown-divider">`
+            })
+            notinew == app.notilength ? "" : app.notilength = notinew;
+            document.getElementById("NotiShow").innerHTML = body;
+            document.getElementById("notilength").innerHTML = app.notilength;
+        return loadnoti();
+    },1000)
+}
+app.handercommands.push(loadnoti)
 
 app.start();
-
-function renderCity(data){
-    var citis = document.querySelectorAll(".city"); 
-    var district = document.querySelectorAll(".district");  
-    var ward =document.querySelectorAll(".ward"); 
+renderCity(0)
+function renderCity(id){
+    var data = cactinh;
+    var citis = document.querySelector(`.city_${id}`); 
+    var district = document.querySelector(`.district_${id}`);  
+    var ward =document.querySelector(`.ward_${id}`); 
     for (const x of data) {
-        citis.forEach(a => a.options[a.options.length] = new Option(x.Name, x.Id))
+        citis.options[citis.options.length] = new Option(x.Name, x.Id)
     }
-  // xứ lý khi thay đổi tỉnh thành thì sẽ hiển thị ra quận huyện thuộc tỉnh thành đó
-    citis.forEach(a => {
-        if(!a.dataset.acc) a.selectedIndex = "0";
-    })
-   citis.forEach(a => a.onchange = function () {
-        district.forEach(b => b.length = 1)
-        ward.forEach(b => b.length = 1)
+
+
+    citis.onchange = function () {
+        district.length = 1
+        ward.length = 1
         if(this.value != ""){
           const result = data.filter(n => n.Id === this.value);
           var id = this.value;
           for (const k of result[0].Districts) {
-            district.forEach(b => {
-                b.options[b.options.length] = new Option(k.Name, k.Id);
-                b.dataset.id = id;
-            } )
+                district.options[district.options.length] = new Option(k.Name, k.Id);
+                district.dataset.id = id;
           }
         }
-    })
+    }
 
    // xứ lý khi thay đổi quận huyện thì sẽ hiển thị ra phường xã thuộc quận huyện đó
-   district.forEach(b => b.onchange = function () {
-        ward.forEach(b => b.length = 1);
+   district.onchange = function () {
+        ward.length = 1
         const dataCity = data.filter((n) => n.Id === this.dataset.id);
         if (this.value != "") {
           const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
 
           for (const w of dataWards) {
-              ward.forEach(b => b.options[b.options.length] = new Option(w.Name, w.Id))
+              ward.options[ward.options.length] = new Option(w.Name, w.Id)
           }
         }
-      })
+   }
 
 }
 

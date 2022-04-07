@@ -8,23 +8,23 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Number of orders</p>
-                                <h6 class="mb-0">$0</h6>
+                                <p class="mb-2">Wait for pay</p>
+                                <h6 class="mb-0" id = "show_Wait_for_pay">$0</h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Total amount collected</p>
-                                <h6 class="mb-0">$0</h6>
+                                <p class="mb-2">Paid</p>
+                                <h6 class="mb-0" id = "show_Paid">$0</h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <div class="ms-3">
-                                <p class="mb-2">Total fare</p>
+                                <p class="mb-2">Unwarranted</p>
                                 <h6 class="mb-0">$0</h6>
                             </div>
                         </div>
@@ -35,7 +35,49 @@
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-light rounded h-100 p-4">
                         <h6 class="mb-4">Pie Chart</h6>
-                        <canvas class="pie-chart-hai"></canvas>
+                        <canvas class="pie-chart-ba"></canvas>
                     </div>
                 </div>
             </div>
+@section Scripts {
+    <script>
+        async function thongketienhang() {
+            load.on();
+            var { product: dataProduct } = await fetchurl.get(UrlApi + "/Products/" + getCookie("UserID") + "?user=true");
+            var body = "";
+            var Wait_for_pay = 0;
+            var Paid = 0;
+            var productmoth = {};
+            for(var i = 0; i < dataProduct.length ; i++){
+                var data = dataProduct[i];
+                if(data.status == "Done"){
+                    Paid += data.Total_charge;
+                }else {
+                    Wait_for_pay += data.Total_charge;
+                }           
+            }
+            document.querySelector('#show_Wait_for_pay').innerHTML = "$" + Wait_for_pay;
+            document.querySelector('#show_Paid').innerHTML = "$" + Paid;
+                var ctx5 = $(".pie-chart-ba").get(0).getContext("2d");
+                var myChart5 = new Chart(ctx5, {
+                    type: "pie",
+                    data: {
+                        labels: ["Wait for pay", "Paid", "Unwarranted"],
+                        datasets: [{
+                            backgroundColor: [
+                                "rgba(0, 156, 255, .7)",
+                                "rgba(0, 156, 255, .6)",
+                                "rgba(0, 156, 255, .5)"
+                            ],
+                            data: [Wait_for_pay, Paid, 0]
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            return load.off();
+        }
+        app.handercommands.push(thongketienhang);
+    </script>
+}

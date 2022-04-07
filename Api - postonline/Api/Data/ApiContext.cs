@@ -26,5 +26,7 @@ namespace Api.Data
         public DbSet<Api.Models.postaddress> postaddress { get; set; }
 
         public DbSet<Api.Models.Products> Products { get; set; }
+
+        public DbSet<Api.Models.Notiuser> Notiuser { get; set; }
     }
 }

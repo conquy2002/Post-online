@@ -90,6 +90,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Type</th>
                             <th scope="col">Money</th>
+                            <th scope="col">Distance</th>
                             <th scope="col">Weith</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -120,6 +121,28 @@
                 </table>         
             </div>
         </div>
+        <div class="col-sm-12 col-xl-10 setting-acc setting-acc-6 d-none" >
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Everyone's account SETTING</h6>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Roles</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id = "Everyones_account_SETTING">
+                    </tbody>
+                </table>         
+            </div>
+        </div>
     </div>
 </div>
 
@@ -139,33 +162,39 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="ModalAddTransportFee" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddTransportFee')">&times;</button>
-            <h4 class="modal-title">Add Servce</h4>
-        </div>
-        <div class="modal-body">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="AddTransportFeeType"  required>
-                <label for="AddTransportFeeType">Type</label>
+            <div class="modal-header">
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddTransportFee')">&times;</button>
+                <h4 class="modal-title">Add Servce</h4>
             </div>
-            <div class="form-floating mb-4">
-                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">G</span>
-                <input type="number" class="form-control" id="AddTransportFeeWeith"  required>
-                <label for="AddTransportFeeWeith">Weith</label>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="AddTransportFeeType"  required>
+                    <label for="AddTransportFeeType">Type</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">G</span>
+                    <input type="number" class="form-control" id="AddTransportFeeWeith"  required>
+                    <label for="AddTransportFeeWeith">Weith</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
+                    <input type="number" class="form-control" id="AddTransportFeeMoney" required>
+                    <label for="AddTransportFeeMoney">Money</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">/KM</span>
+                    <input type="number" class="form-control" id="AddTransportFeeDistance" required>
+                    <label for="AddTransportFeeDistance">Distance</label>
+                </div>
             </div>
-            <div class="form-floating mb-4">
-                <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">$</span>
-                <input type="number" class="form-control" id="AddTransportFeeMoney" " required>
-                <label for="AddTransportFeeMoney">Money</label>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary  btn-AddTransportFee ">Add</button>
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddTransportFee')">Close</button>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary  btn-AddTransportFee ">Add</button>
-            <button type="button" class="btn btn-default" onclick = "hide('#ModalAddTransportFee')">Close</button>
-        </div>
         </div>
     </div>
 </div>
@@ -173,7 +202,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSender')">&times;</button>
+                <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSerce')">&times;</button>
                 <h4 class="modal-title">Add Servce</h4>
             </div>
             <div class="modal-body">
@@ -189,7 +218,7 @@
                     <label for="AddServcephone">Money</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">day</span>
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">km/day</span>
                     <input type="number" class="form-control" id="AddServceTime"  required>
                     <label for="AddServceTime">Time</label>
                 </div>
@@ -199,6 +228,31 @@
                 <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSerce')">Close</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalAddSendNoti" role="dialog">
+    <div class="modal-dialog">
+         <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSendNoti')">&times;</button>
+                    <h4 class="modal-title">Add Send Noti</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="AddAddSendNotiName" placeholder="jhondoe" required>
+                        <label for="AddAddSendNotiName">Title</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <textarea  class="form-control" id="AddAddSendNotiBody"></textarea>
+                        <label for="AddAddSendNotiBody">Body</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-AddSendNoti">Add</button>
+                    <button type="button" class="btn btn-default" onclick = "hide('#ModalAddSendNoti')">Close</button>
+                </div>
+         </div>
     </div>
 </div>
 <div class="modal fade" id="ModalAddSender" role="dialog">
@@ -219,8 +273,21 @@
                     </div>
   
                     <div class="form-floating mb-4">
-                        <input type="number" class="form-control" id="AddSenderAddress"  required>
+                        <input type="text" class="form-control" id="AddSenderAddress"  required>
                         <label for="AddSenderAddress">Address</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="InputAddress1" class="form-label">Address</label>
+                        <select class="form-select form-select-sm mb-3 city_2" id="city" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn tỉnh thành</option>           
+                        </select>
+                        <select class="form-select form-select-sm mb-3 district_2" id="district" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn quận huyện</option>
+                        </select>
+
+                        <select class="form-select form-select-sm ward_2" id="ward" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn phường xã</option>
+                        </select>
                     </div>
 
                 </div>
@@ -297,9 +364,38 @@
                     <label for="InputAddress1" class="form-label">Address</label>
                     <input type="text" class="form-control" id="InputAddress1" value = "${data.address}" >
                 </div>
-               
+                <div class="mb-3">
+                    <label for="InputAddress1" class="form-label">Address</label>
+                    <select class="form-select form-select-sm mb-3 city_1" id="city" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn tỉnh thành</option>           
+                    </select>
+                    <select class="form-select form-select-sm mb-3 district_1" id="district" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn quận huyện</option>
+                    </select>
+
+                    <select class="form-select form-select-sm ward_1" id="ward" aria-label=".form-select-sm">
+                        <option value="" selected>Chọn phường xã</option>
+                    </select>
+                </div>
             `
-            document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = "";
+            renderCity(1);
+            renderCity(2);
+            if(data.city != null){
+                document.querySelector('.city_1').value = data.city;
+                const result = cactinh.filter(n => n.Id === data.city);
+                for (const k of result[0].Districts) {
+                     document.querySelector('.district_1').options[ document.querySelector('.district_1').options.length] = new Option(k.Name, k.Id);
+                }
+                document.querySelector('.district_1').value = data.district;
+                const dataWards = result[0].Districts.filter(n => n.Id === data.district)[0].Wards;
+
+                for (const w of dataWards) {
+                    document.querySelector('.ward_1').options[document.querySelector('.ward_1').options.length] = new Option(w.Name, w.Id)
+                }
+                document.querySelector('.ward_1').value = data.ward;
+            }
+            
+
             load.on();
             var data = await fetchurl.get(UrlApi + "/Recipients/" + getCookie("UserID"));
             var dataalluser = await fetchurl.get(UrlApi + UrlUser + "/" + getCookie("UserID") + "?all=true")
@@ -317,10 +413,82 @@
                         </tr>`
             }
             document.getElementById('SENDER_INFORMATION_SETTING').innerHTML = body;
-            if(dataalluser.IsAdmin) {
+            if(dataalluser.IsAdmin){
+                $(".chose_setting").append(`<button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "6">Everyone's account</button>`)
+                var dataallservce = await fetchurl.get(UrlApi + "/Users")
+                var body = "";
+                for(var i = 0; i < dataallservce.length ; i++){
+                    body += `<tr>
+                                <th scope="row">${(i+1)}</th>
+                                <td>${dataallservce[i].Name}</td>
+                                <td>${dataallservce[i].Email}</td>
+                                <td>0${dataallservce[i].Phone}</td>
+                                <td><img class="rounded-circle me-lg-2" src="${UrlApi + UrlImagerName + dataallservce[i].Avatar}" alt="" style="width: 40px; height: 40px;"></td>
+                                <td><select class="form-select SelectRoles" data-id = "${dataallservce[i].Id}">
+                                <option value = 'is_Admin' ${dataallservce[i].IsAdmin ? "selected" : ""}>Admin</option>
+                                <option value = 'is_QTV' ${dataallservce[i].IsQtv ? "selected" : ""}>QTV</option>
+                                <option value = 'normal' ${!dataallservce[i].IsQtv && !dataallservce[i].IsAdmin ? "selected" : "" }>Normal</option>
+                                    </select></td>
+                                <td><button type="button" class="btn btn-primary m-2" onclick = "AddSendernoti(${dataallservce[i].Id})">SenderNoti</button></td>
+                                <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${dataallservce[i].Id},'Users')">Delete</button></td>
+                            </tr>`
+                }
+                document.getElementById('Everyones_account_SETTING').innerHTML = body;
+                document.querySelectorAll(".SelectRoles").forEach(a => {
+                    a.onchange  = async function InputWeightProduct() {
+                        load.on();
+                        var that = this;
+                        var dataalluser = await fetchurl.get(UrlApi + UrlUser + "/" + that.dataset.id + "?all=true")
+                        await fetchurl.put(UrlApi + UrlUser + `/${that.dataset.id}` , {
+                            "id": dataalluser.Id,
+                            "name": dataalluser.Name,
+                            "password": dataalluser.Password,
+                            "avatar": dataalluser.Avatar,
+                            "isAdmin": that.value == "is_Admin" ? true : false,
+                            "token": dataalluser.Token,
+                            "isQtv": that.value == "is_QTV" ? true : false,
+                            "token": dataalluser.Token,
+                            "phone": dataalluser.Phone,
+                            "email": dataalluser.Email,
+                            "address": dataalluser.Address,
+                            "city": dataalluser.City,
+                            "district": dataalluser.District,
+                            "ward": dataalluser.Ward,
+                            "orders": dataalluser.Orders
+                        },(err,d) => {
+                            if(err) { 
+                                JSON.stringify(err)
+                                return alert("Vui lòng thử lại sau")
+                            }
+                        })
+                        return load.off();
+                    }
+                })
+            }
+            if(dataalluser.IsQtv){
+                $(".chose_setting").append(`<button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "6">Sendnoti</button>`)
+                var dataallservce = await fetchurl.get(UrlApi + "/Users")
+                var body = "";
+                for(var i = 0; i < dataallservce.length ; i++){
+                    body += `<tr>
+                                <th scope="row">${(i+1)}</th>
+                                <td>${dataallservce[i].Name}</td>
+                                <td>${dataallservce[i].Email}</td>
+                                <td>0${dataallservce[i].Phone}</td>
+                                <td><img class="rounded-circle me-lg-2" src="${UrlApi + UrlImagerName + dataallservce[i].Avatar}" alt="" style="width: 40px; height: 40px;"></td>
+                                <td></td>
+                                <td><button type="button" class="btn btn-primary m-2" onclick = "AddSendernoti(${dataallservce[i].Id})">SenderNoti</button></td>
+                                <td></td>
+                            </tr>`
+                }
+                document.getElementById('Everyones_account_SETTING').innerHTML = body;
+                
+            }
+            if(dataalluser.IsAdmin  || dataalluser.IsQtv) {
                 $(".chose_setting").append(` <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "3">Service settings</button>
                                             <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "4">Transport Fee settings</button>
                                             <button type="button" class="btn btn-sm btn-outline-primary m-2  btn-acc" data-item = "5">Postal address</button>`)
+                
                 
                 var dataallservce = await fetchurl.get(UrlApi + "/Servces")
                 var body = "";
@@ -342,7 +510,8 @@
                                 <th scope="row">${(i+1)}</th>
                                 <td>${TransportFees[i].Type}</td>
                                 <td>${TransportFees[i].Money}</td>
-                                <td>${TransportFees[i].Weith}</td>
+                                <td>${TransportFees[i].Distance}</td>
+                                 <td>${TransportFees[i].Weith}</td>
                                 <td><button type="button" class="btn btn-primary m-2" onclick = "editsenderinfo(${TransportFees[i].Id},'TransportFees')">Edit</button></td>
                                 <td><button type="button" class="btn btn-danger m-2" onclick = "deletesenderinfo(${TransportFees[i].Id},'TransportFees')">Delete</button></td>
                             </tr>`
@@ -361,6 +530,7 @@
                             </tr>`
                 }
                 document.getElementById('Address_Postal_SETTING').innerHTML = body;
+
 
             }
             load.off();
@@ -392,10 +562,15 @@
                     "password": dataalluser.Password,
                     "avatar": avatarname,
                     "isAdmin": dataalluser.IsAdmin,
+                    "IsQtv": dataalluser.IsQtv,
                     "token": dataalluser.Token,
                     "phone": $("#InputPhone1").val(),
                     "email": $("#InputEmail1").val(),
                     "address": $("#InputAddress1").val(),
+                    "city": $(".city_1").val(),
+                    "district": $(".district_1").val(),
+                    "ward": $(".ward_1").val(),
+                        
                     "orders": dataalluser.Orders
                 },(err,d) => {
                     if(err) { 
@@ -428,10 +603,14 @@
                     "password": pwdmd5new,
                     "avatar": dataalluser.Avatar,
                     "isAdmin": dataalluser.IsAdmin,
+                    "IsQtv": dataalluser.IsQtv,
                     "token": tokennew,
                     "phone": dataalluser.Phone,
                     "email": dataalluser.Email,
                     "address": dataalluser.Address,
+                    "city": dataalluser,City,
+                    "district": dataalluser.District,
+                    "ward": dataalluser.Ward,
                     "orders": dataalluser.Orders
                 },(err,d) => {
                     if(err) { 
@@ -482,7 +661,7 @@
             document.querySelector('.btn-AddTransportFee').onclick = async () => {
                 return fetchurl.post(UrlApi + "/TransportFees", {
                     "weith": $("#AddTransportFeeWeith").val(),
-                    "distance": " ",
+                    "distance": $("#AddTransportFeeDistance").val(),
                     "type": $("#AddTransportFeeType").val(),
                     "money": $("#AddTransportFeeMoney").val()
 
@@ -508,6 +687,10 @@
                     "userID": app.dataUser.id,
                     "phone": $("#AddSenderphone").val(),
                     "address": $("#AddSenderAddress").val(),
+                    "city": $(".city_2").val(),
+                    "district": $(".district_2").val(),
+                    "ward": $(".ward_2").val(),
+
                 }, false, (loi, data) => {
                     if (loi) {
                         alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
@@ -531,12 +714,12 @@
                     "time": $("#AddServceTime").val()
                 }, false, (loi, data) => {
                     if (loi) {
-                        alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
+                        alert("website maintenance !! hope you relax the next day :3");
                         return location.reload();
                     }
 
-                    if (data.Status == "Error" || data.errors) {
-                        alert(data.message ? data.message : data.errors);
+                    if (data.errors) {
+                        alert("Error Database");
                         console.log(data)
                         return location.reload()
                     }
@@ -544,6 +727,30 @@
                     return location.reload();
                 })
             };
+            document.querySelector('.btn-AddSendNoti').onclick = async () => {
+                return fetchurl.post(UrlApi + "/Notiusers", {
+                    "userId": parseInt( document.querySelector("#ModalAddSendNoti").dataset.id),
+                    "body": $("#AddAddSendNotiBody").val(),
+                    "name": $("#AddAddSendNotiName").val(),
+                    "seened": false,
+                    "senderId": parseInt( getCookie("UserID")),
+                    "createdDate": `${Date.now()}`
+                }, false, (loi, data) => {
+                    if (loi) {
+                        alert("website maintenance !! hope you relax the next day: 3");
+                        return location.reload();
+                    }
+
+                    if (data.errors) {
+                        alert("Error Database");
+                        console.log(data)
+                        return location.reload()
+                    }
+                    alert("done")
+                    return location.reload();
+                })
+            };
+
             document.querySelector('.cancer').onclick = () => location.reload();
         }
 
@@ -564,7 +771,35 @@
                         <input type="text" class="form-control" id="EditSenderAddress" placeholder="Address" required value = '${data.Address}'>
                         <label for="EditSenderAddress">Address</label>
                     </div>
+                     <div class="mb-3">
+                        <label for="InputAddress1" class="form-label">Address</label>
+                        <select class="form-select form-select-sm mb-3 city_3" id="city" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn tỉnh thành</option>           
+                        </select>
+                        <select class="form-select form-select-sm mb-3 district_3" id="district" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn quận huyện</option>
+                        </select>
+
+                        <select class="form-select form-select-sm ward_3" id="ward" aria-label=".form-select-sm">
+                            <option value="" selected>Chọn phường xã</option>
+                        </select>
+                    </div>
                 `
+                renderCity(3);
+                if(data.City != null){
+                    document.querySelector('.city_3').value = data.City;
+                    const result = cactinh.filter(n => n.Id === data.City);
+                    for (const k of result[0].Districts) {
+                         document.querySelector('.district_3').options[ document.querySelector('.district_3').options.length] = new Option(k.Name, k.Id);
+                    }
+                    document.querySelector('.district_3').value = data.District;
+                    const dataWards = result[0].Districts.filter(n => n.Id === data.District)[0].Wards;
+
+                    for (const w of dataWards) {
+                        document.querySelector('.ward_3').options[document.querySelector('.ward_3').options.length] = new Option(w.Name, w.Id)
+                    }
+                    document.querySelector('.ward_3').value = data.Ward;
+                }
                 document.querySelector('.summitedit').classList.add('btn-Update');
                 document.querySelector('.summitedit').classList.remove('btn-Update-servce');
                 document.querySelector('.summitedit').classList.remove('btn-Update-tranpostfee');
@@ -576,6 +811,9 @@
                     "name": $("#EditSenderText").val(),
                     "userID": app.dataUser.id,
                     "phone": $("#EditSenderphone").val(),
+                    "city": $(".city_3").val(),
+                    "district": $(".district_3").val(),
+                    "ward": $(".ward_3").val(),
                     "address": $("#EditSenderAddress").val(),
                 }, (loi, data) => {
                     if (loi) {
@@ -606,7 +844,7 @@
                         <label for="EditServcephone">Money</label>
                     </div>
                     <div class="form-floating mb-4">
-                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">day</span>
+                    <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">km/day</span>
                         <input type="number" class="form-control" id="EditServceTime" placeholder="phone" required value = '${data.Time}'>
                         <label for="EditServceTime">Time</label>
                     </div>
@@ -656,6 +894,11 @@
                         <input type="text" class="form-control" id="EditTransportFeesMoney" placeholder="jhondoe" required value = '${data.Money}'>
                         <label for="EditTransportFeesMoney">Money</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <span class="input-group-text" style = "top: 0;position: absolute;right: 0;justify-content: center;width: calc(3.5rem + 2px);height: calc(3.5rem + 2px);">/KM</span>
+                        <input type="text" class="form-control" id="EditTransportFeesDistance" placeholder="jhondoe" required value = '${data.Distance}'>
+                        <label for="EditTransportFeesDistance">Distance</label>
+                    </div>
                 `
                 document.querySelector('.summitedit').classList.remove('btn-Update');
                 document.querySelector('.summitedit').classList.remove('btn-Update-servce');
@@ -666,7 +909,7 @@
                 return fetchurl.put(UrlApi + "/TransportFees/" +  document.querySelector("#ModalEdit").dataset.id , {
                         "id": document.querySelector("#ModalEdit").dataset.id,
                         "weith": $("#EditTransportFeesWeith").val(),
-                        "distance": " ",
+                        "distance": $("#EditTransportFeesDistance").val(),
                         "type": $("#EditTransportFeesText").val(),
                         "money": $("#EditTransportFeesMoney").val()
                     }, (loi, data) => {
@@ -730,10 +973,15 @@
             show("#ModalEdit");
             return document.querySelector("#ModalEdit").dataset.id = id;
         }
+        function AddSendernoti(id){
+            show("#ModalAddSendNoti");
+            return document.querySelector("#ModalAddSendNoti").dataset.id = id;
+        }
         function deletesenderinfo(id,name){
             if(confirm("Are you sure ??") == true){
                 return fetchurl.delete(UrlApi + "/"+name+"/" +  id, (loi, data) => {
                     if (loi) {
+                        console.log(loi)
                         alert("Trang web đang bảo trì !! Mong bạn vào lại vào hôm sau :3");
                         return location.reload();
                     }

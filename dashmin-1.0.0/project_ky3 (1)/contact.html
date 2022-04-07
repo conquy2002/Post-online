@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>index</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: black;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: #EE0033;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        /* Slideshow container */
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: auto;
+        }
+
+        /* Caption text */
+        .text {
+            color: #f2f2f2;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Number text (1/3 etc) */
+        .numbertext {
+            color: #f2f2f2;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+        }
+
+        /* The dots/bullets/indicators */
+
+
+        .active {
+            background-color: #717171;
+        }
+
+        /* Fading animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 4s;
+            animation-name: fade;
+            animation-duration: 4s;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* On smaller screens, decrease text size */
+        @media only screen and (max-width: 300px) {
+            .text {
+                font-size: 11px
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="top">
+        <div class="col-md-12"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div style="padding-top: 5%; padding-left: 15%; padding-bottom: 5%;">
+                    <a href="./index.html">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/Group-5934.png"
+                            width="15%;"></a>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+                <div style="padding-top: 15%; padding-bottom: 5%; ">
+                    <form class="example" action="action_page.php">
+                        <input type="text" placeholder="Search . . . . " name="search">
+                        <div style="padding-top: 3%;">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div style="padding-top: 16%; text-align: right;">
+                    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login /
+                        Register</button>
+                </div>
+
+                <div id="id01" class="modal">
+
+                    <form class="modal-content animate" action="/action_page.php" method="post">
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                                title="Close Modal">&times;</span>
+                            <img src="data:image/png;base64,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"
+                                alt="Avatar" class="avatar">
+                        </div>
+
+                        <div class="container">
+                            <label for="uname"><b>Username</b></label>
+                            <input type="text" placeholder="Enter Username" name="uname" required>
+
+                            <label for="psw"><b>Password</b></label>
+                            <input type="password" placeholder="Enter Password" name="psw" required>
+
+                            <button type="submit">Login</button>
+                            <label>
+                                <input type="checkbox" checked="checked" name="remember"> Remember me
+                            </label>
+                        </div>
+
+                        <div class="container" style="background-color:#f1f1f1">
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                                class="cancelbtn">Cancel</button>
+                            <span class="psw"> Forgot <a href="#">password?</a></span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-md-1">
+                <div style="padding-top: 27%; padding-bottom: 5%;">
+                    <img src="https://foreverbedding.net/static/version1642055362/frontend/Forever/default/vi_VN/images/flags/flag_vi.png"
+                        style="width: 50%;">
+
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div style="padding-top: 27%; padding-bottom: 5%; ">
+                    <img src="https://foreverbedding.net/static/version1642055362/frontend/Forever/default/vi_VN/images/flags/flag_vi.png"
+                        style="width: 50%;">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div>
+            <div class="navbar">
+                <a href="./index.html"> Trang chủ</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Dịch vụ
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Dịch vụ trong nước</a>
+                        <a href="#">Dịch vụ quốc tế</a>
+                        <a href="#">Dịch vụ logictic</a>
+                        <a href="#">Thương mại điện tử</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Tin tức
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Tin hoạt động</a>
+                        <a href="#">Tin khuyến mãi</a>
+                        <a href="#">Tin đấu thầu</a>
+                        <a href="#">Hướng dẫn sử dụng</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Ứng dụng số
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Vỏ sò</a>
+                        <a href="#">MyGo</a>
+                        <a href="#">ViettelPost App</a>
+                        <a href="#">ViettelSale</a>
+                        <a href="#">Quảng cáo số</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Thêm thông tin
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Liên hệ</a>
+                        <a href="#">Tuyển dụng</a>
+
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Hỗ trợ khách hàng
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Hướng dẫn sử dụng</a>
+                        <a href="#">Câu hỏi thường gặp</a>
+                        <a href="#">Gửi thông tin khiếu nại</a>
+                        <a href="#">Góp ý sản phẩm dịch vụ</a>
+                        <a href="#">Chính sách vận chuyển</a>
+                        <a href="#">Hàng hóa vận chuyển</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Quan hệ cổ đông
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">Về ViettelPost</a>
+                        <a href="#">Đại hội đồng cổ đông</a>
+                        <a href="#">Điều lệ tổng công ty</a>
+                        <a href="#">Báo cáo tài chính</a>
+                        <a href="#">Báo cáo thường niên</a>
+                        <a href="#">Tin cổ đông</a>
+                        <a href="#">Thông tin báo chí</a>
+                        <a href="#">Thông tin doanh nghiệp</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h2>TỔNG CÔNG TY CỔ PHẦN BƯU CHÍNH VIETTEL</h2>
+            <p>“Mạng chuyển phát nhanh rộng khắp"</p>
+        </div>
+    </div>
+    <div style="padding-left: 2%; padding-top: 2%;">
+        <a href="./index.html" style="font-weight: bold; color: black;">Trang chủ</a>
+    </div>
+
+
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/ava-1.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                MỘT CLICK ĐỂ ĐĂNG KÍ – DEAL VỀ NGAY ĐẦY VÍ – COMBO 3 VOUCHER GIẢM “KHỦNG”..</p>
+                            <p style="color: #6c757d;"> 11 Tháng Ba, 2022</p>
+                            <p style="font-weight: bold;">Tiếp nối độ “hot” của chương trình khuyến mại của Tháng 2 vừa
+                                qua,
+                                Viettel Post...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/ava-4.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                Chào mừng ngày Quốc tế Phụ nữ 8/3</p><br>
+                            <p style="color: #6c757d;"> 7 Tháng Ba, 2022</p>
+                            <p style="font-weight: bold;">Nhân dịp ngày Quốc tế Phụ nữ 8/3, Viettel Post xin gửi những
+                                lời chúc nồng nhiệt...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/women.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                MỪNG 8/3 – SHIP BAO LA – GIẢM “CỰC ĐÃ” 8.300Đ CÙNG VIETTEL POST</p>
+                            <p style="color: #6c757d;"> 7 Tháng Ba, 2022</p>
+                            <p style="font-weight: bold;">Ngày quốc tế phụ nữ 8/3 đang đến rất gần và quà tặng là một
+                                trong những...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/ava-2.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                VIETTEL POST HOẠT ĐỘNG CẢ TUẦN – GIAO HÀNG KHÔNG “NGHỈ PHÉP”</p>
+                            <p style="color: #6c757d;"> 16 Tháng Hai, 2022</p>
+                            <p style="font-weight: bold;">Nhằm nâng cao chất lượng dịch vụ, giúp khách hàng yên tâm khi
+                                sử dụng dịch vụ...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div><br><br>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/ava-4.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                MỘT CLICK ĐỂ ĐĂNG KÍ – DEAL VỀ NGAY ĐẦY VÍ – COMBO 3 VOUCHER GIẢM “KHỦNG”..</p>
+                            <p style="color: #6c757d;"> 11 Tháng Ba, 2022</p>
+                            <p style="font-weight: bold;">Tiếp nối độ “hot” của chương trình khuyến mại của Tháng 2 vừa
+                                qua,
+                                Viettel Post...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/women.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                Chào mừng ngày Quốc tế Phụ nữ 8/3</p><br>
+                            <p style="color: #6c757d;"> 7 Tháng Ba, 2022</p>
+                            <p style="font-weight: bold;">Nhân dịp ngày Quốc tế Phụ nữ 8/3, Viettel Post xin gửi những
+                                lời chúc nồng nhiệt...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2022/03/ava-2.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                MỪNG 8/3 – SHIP BAO LA – GIẢM “CỰC ĐÃ” 8.300Đ CÙNG VIETTEL POST</p>
+                            <p style="color: #6c757d;"> 7 Tháng Ba, 2022</p>
+                            <p style="font-weight: bold;">Ngày quốc tế phụ nữ 8/3 đang đến rất gần và quà tặng là một
+                                trong những...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="polaroid">
+                        <img src="https://viettelpost.com.vn/wp-content/uploads/2021/06/380x270.jpg" alt="Norway"
+                            style="width:100%">
+                        <div class="container">
+                            <p style="font-weight: bold;"><i class="fa fa-home"
+                                    style="color: red; font-size: 29px;"></i>
+                                VIETTEL POST HOẠT ĐỘNG CẢ TUẦN – GIAO HÀNG KHÔNG “NGHỈ PHÉP”</p>
+                            <p style="color: #6c757d;"> 16 Tháng Hai, 2022</p>
+                            <p style="font-weight: bold;">Nhằm nâng cao chất lượng dịch vụ, giúp khách hàng yên tâm khi
+                                sử dụng dịch vụ...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div><br><br>
+
+
+    <br>                                                                                                                                
+    <br>
+    <hr style="border-bottom: 5px solid red;">
+    <div class="foter">
+        <div style="background-color: #212D33; color: aliceblue;">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="padding-left: 8%; padding-top: 15%; text-align: left;">
+                            <span>TỔNG CÔNG TY CỔ PHẦN BƯU CHÍNH VIETTEL</span><br><br>
+                            <p>Viettel Post là doanh nghiệp hàng đầu cung cấp dịch vụ chuyển phát nhanh hàng hoá, bưu
+                                kiện
+                                trong nước, quốc tế tại Việt Nam.</p>
+
+                            <span>THÔNG TIN LIÊN HỆ</span><br><br>
+
+                            <p><i class="fa fa-location-arrow" style="color: red;"></i> Giấy chứng nhận Đăng ký Kinh
+                                doanh
+                                số: 0104093672 do Phòng ĐKKD Thành phố Hà Nội Cấp ngày: 12/07/2019</p>
+
+                            <p><i class="fa fa-map-marker" style="color: red;"></i> VP giao dịch: Toà nhà N2, Km số 2,
+                                Đại
+                                lộ Thăng Long, Phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội.</p>
+
+                            <p><i class="fa fa-envelope" style="color: red;"></i> cskh@viettelpost.com.vn</p>
+
+                            <p style="font-size: 30px;"><i class="fa fa-phone" style="color: red;"></i> 19008095</p>
+
+                            <p>Kết nối cùng ViettelPost</p>
+
+                            <div style="font-size: 35px;">
+                                <i class="fa fa-facebook-square"></i>
+                                <i class="fa fa-instagram"></i>
+                                <i class="fa fa-pinterest-square"></i>
+                                <i class="fa fa-snapchat-square"></i>
+                                <i class="fa fa-twitter-square"></i>
+                                <i class="fa fa-linkedin-square"></i>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div style="padding-left: 8%; padding-top: 15%; text-align: center;">
+
+                            <ul>
+                                <li><a href="" style="color: white; text-decoration: none"> Về ViettelPost </a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Giới thiệu</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Tin tức</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Mạng lưới bưu cục</a></li>
+                                <br>
+                                <li><a href="" style="color: white; text-decoration: none">Tuyển dụng</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Hợp tác</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Kết nối API</a></li>
+                                <br><br><br>
+                                <li>Tải app ViettelPost</li><br>
+
+                                <img src="https://viettelpost.com.vn/wp-content/themes/viettel/images/qr-code-tai-app.png"
+                                    width=40%" </ul>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div style="padding-left: 8%; padding-top: 15%; text-align: left;">
+
+                            <ul>
+                                <li><a href="" style="color: white; text-decoration: none">Hỗ trợ khách hàng</a></li>
+                                <br>
+                                <li><a href="" style="color: white; text-decoration: none">Chat online với CSKH</a></li>
+                                <br>
+                                <li><a href="" style="color: white; text-decoration: none">Hướng dẫn sử dụng dịch vụ</a>
+                                </li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Câu hỏi thường gặp</a></li>
+                                <br>
+                                <li><a href="" style="color: white; text-decoration: none">Điều khoản sử dụng</a></li>
+                                <br>
+                                <li><a href="" style="color: white; text-decoration: none">Chính sách bảo mật thông
+                                        tin</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Chính sách vận chuyển</a>
+                                </li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Góp ý sản phẩm dịch vụ</a>
+                                </li><br><br><br>
+
+                                <img src="https://viettelpost.com.vn/wp-content/themes/viettel/images/ico-vt-verrify.png"
+                                    width="80%" </ul>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div style="padding-left: 8%; padding-top: 15%; text-align: left;">
+
+                            <ul>
+                                <li><a href="" style="color: white; text-decoration: none">HOTLINE HỢP TÁC KINH
+                                        DOANH</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Miền Bắc Mr.Hiếu
+                                        (0982099494)</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Miền Trung Mr.Quỳnh
+                                        (0962521062)</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Miền Nam Mr.Hải
+                                        (0972544322)</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">KH hệ thống Mr.Hà
+                                        (0981946868)</a></li><br>
+                                <li><a href="" style="color: white; text-decoration: none">Email:
+                                        kinhdoanh@viettelpost.com.vn</a></li><br><br><br>
+
+                                <img src="https://viettelpost.com.vn/wp-content/themes/viettel/images/bocongthuong.png"
+                                    width="80%" </ul>
+
+                        </div>
+
+                    </div>
+                    <hr>
+                    <p style="text-align: center;">©ViettelPost 2020. All rights reserved</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+
+</body>
+
+</html>

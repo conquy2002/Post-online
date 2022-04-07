@@ -23,7 +23,8 @@ namespace Api.Models
         public string? SenderAddress { get; set; }
         public int Total_charge { get; set; }
         public string? StartTime { get; set; }
-        
+        public int Month { get; set; }
+
         public string? status { get; set; }
     }
 }

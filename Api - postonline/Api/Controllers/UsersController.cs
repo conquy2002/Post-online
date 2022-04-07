@@ -54,6 +54,9 @@ namespace Api
                     avatar = user.Avatar,
                     phone = user.Phone,
                     address = user.Address,
+                    city = user.City,
+                    district = user.District,
+                    ward = user.Ward,
                     email = user.Email
                 });
             }
@@ -120,7 +123,7 @@ namespace Api
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { Startus = "Done" });
         }
 
         private bool UserExists(int id)
